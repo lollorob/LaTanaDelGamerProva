@@ -108,5 +108,16 @@ public class AccountUserBean implements Serializable {
 	public void setProvincia(String provincia) {
 		this.provincia = provincia;
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		return this.getUsername() ==  ((AccountUserBean) other).getUsername();
+	}
+	
+	@Override
+	public String toString() {
+		return username + " (" +eMail+ ", " + passwd + ", " + nome + ", " + cognome + ", " + data + ", " +n_Ordini + ", " + via + ", " + numero + ", " + cap + ", " + citta + ", " + provincia+ ") ";
+		
+	}
     	
 }

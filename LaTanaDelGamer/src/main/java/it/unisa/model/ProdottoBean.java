@@ -68,4 +68,17 @@ public class ProdottoBean implements Serializable {
 	public void setCategoria(CategoriaBean categoria) {
 		this.categoria = categoria;
 	}
+	
+	@Override
+	public boolean equals(Object other) {
+		return this.getId_prodotto() ==  ((ProdottoBean) other).getId_prodotto();
+	}
+	
+	@Override
+	public String toString() {
+		return id_prodotto + " (" +nome+ ", " + prezzo + ", " + descrizione + ", " + casaProduttrice + ", " +nomeCategoria + ") ";
+	}
+
+	
+	
 }
