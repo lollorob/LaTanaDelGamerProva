@@ -11,7 +11,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 
-
+@WebListener
 public class MainContext implements ServletContextListener {
 
 	@Override
