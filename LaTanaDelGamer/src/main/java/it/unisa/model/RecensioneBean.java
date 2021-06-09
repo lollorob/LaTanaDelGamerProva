@@ -76,7 +76,7 @@ public class RecensioneBean implements Serializable {
 	
 	@Override
 	public String toString() {
-		return " (" + id_recensione + "," + nome + "," + valutazione + "," + descrizione + "," + id_prodotto + "," + ") ";
+		return id_recensione + " (" + "," + nome + "," + valutazione + "," + descrizione + "," + id_prodotto + "," + ") ";
 	}
 
 }

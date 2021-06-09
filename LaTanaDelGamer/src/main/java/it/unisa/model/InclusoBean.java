@@ -65,7 +65,7 @@ public class InclusoBean implements Serializable {
 	
 	@Override
 	public String toString() {
-		return " (" + id_ordine + id_prodotto + "," + quantita + ") ";
+		return id_ordine + " (" + id_prodotto + "," + quantita + ") ";
 	}
 
 }

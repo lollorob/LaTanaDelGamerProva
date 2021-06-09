@@ -46,7 +46,7 @@ public class GalleriaBean implements Serializable {
 	
 	@Override
 	public String toString() {
-		return " (" + id_media + "," + id_prodotto +  ") ";
+		return id_media + " (" + "," + id_prodotto +  ") ";
 	}
 
 	

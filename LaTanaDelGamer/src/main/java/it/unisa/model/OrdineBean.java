@@ -96,7 +96,7 @@ public class OrdineBean implements Serializable {
 	
 	@Override
 	public String toString() {
-		return " (" + id_ordine + "," + data_ordine + "," + username + "," + email_spedizione + "," + importo + "," + tipo_pagamento + "," + metodo_pagamento + ") ";
+		return  id_ordine + " (" + data_ordine + "," + username + "," + email_spedizione + "," + importo + "," + tipo_pagamento + "," + metodo_pagamento + ") ";
 	}
 
 }

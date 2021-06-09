@@ -37,7 +37,7 @@ public class CategoriaBean implements Serializable {
 	
 	@Override
 	public String toString() {
-		return " (" + nome + descrizione + ") ";
+		return nome + " (" + descrizione + ") ";
 	}
 
 }
