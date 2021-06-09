@@ -47,6 +47,7 @@ public class MainContext implements ServletContextListener {
 		context.setAttribute("DataSource", ds);
 		Utility.print("DataSource creation: " + ds.toString());
 
+		
 	}
 	
 	@Override
