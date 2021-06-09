@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <Context>
-    <Resource name="jdbc/storage"
+    <Resource name="jdbc/la_tana_del_gamer"
         auth="Container"
         driverClassName="com.mysql.cj.jdbc.Driver"
         type="javax.sql.DataSource"
