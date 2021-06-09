@@ -12,7 +12,7 @@ public class RecensioneModelDS implements EntityModel<RecensioneBean> {
 	}
 
 	@Override
-	public Collection<RecensioneBean> doRetrieveAll() throws SQLException {
+	public Collection<RecensioneBean> doRetrieveAll(String ordine) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

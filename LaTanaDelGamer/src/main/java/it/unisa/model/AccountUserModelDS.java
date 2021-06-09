@@ -12,7 +12,7 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 	}
 
 	@Override
-	public Collection<AccountUserBean> doRetrieveAll() throws SQLException {
+	public Collection<AccountUserBean> doRetrieveAll(String ordine) throws SQLException {
 		
 		return null;
 	}

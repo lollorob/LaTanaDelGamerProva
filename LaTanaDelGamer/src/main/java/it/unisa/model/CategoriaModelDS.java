@@ -12,7 +12,7 @@ public class CategoriaModelDS implements EntityModel<CategoriaBean> {
 	}
 
 	@Override
-	public Collection<CategoriaBean> doRetrieveAll() throws SQLException {
+	public Collection<CategoriaBean> doRetrieveAll(String ordine) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

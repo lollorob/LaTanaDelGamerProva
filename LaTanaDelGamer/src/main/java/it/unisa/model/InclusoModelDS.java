@@ -12,7 +12,7 @@ public class InclusoModelDS implements EntityModel<InclusoBean> {
 	}
 
 	@Override
-	public Collection<InclusoBean> doRetrieveAll() throws SQLException {
+	public Collection<InclusoBean> doRetrieveAll(String ordine) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

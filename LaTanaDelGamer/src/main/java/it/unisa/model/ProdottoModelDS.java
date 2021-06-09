@@ -12,7 +12,7 @@ public class ProdottoModelDS implements EntityModel<ProdottoBean> {
 	}
 
 	@Override
-	public Collection<ProdottoBean> doRetrieveAll() throws SQLException {
+	public Collection<ProdottoBean> doRetrieveAll(String ordine) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

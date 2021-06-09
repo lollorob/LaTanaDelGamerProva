@@ -7,7 +7,7 @@ public interface EntityModel<T> {
 	    
 	    public T doRetrieveByKey(Object chiave) throws SQLException;
 	    
-	    public Collection<T> doRetrieveAll() throws SQLException;
+	    public Collection<T> doRetrieveAll(String ordine) throws SQLException;
 	    
 	    public void doSave(T item) throws SQLException;
 	    

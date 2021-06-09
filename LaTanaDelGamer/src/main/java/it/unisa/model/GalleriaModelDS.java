@@ -12,7 +12,7 @@ public class GalleriaModelDS implements EntityModel<GalleriaBean> {
 	}
 
 	@Override
-	public Collection<GalleriaBean> doRetrieveAll() throws SQLException {
+	public Collection<GalleriaBean> doRetrieveAll(String ordine) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}

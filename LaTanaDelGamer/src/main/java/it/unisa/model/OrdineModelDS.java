@@ -12,7 +12,7 @@ public class OrdineModelDS implements EntityModel<OrdineBean> {
 	}
 
 	@Override
-	public Collection<OrdineBean> doRetrieveAll() throws SQLException {
+	public Collection<OrdineBean> doRetrieveAll(String ordine) throws SQLException {
 		// TODO Auto-generated method stub
 		return null;
 	}
