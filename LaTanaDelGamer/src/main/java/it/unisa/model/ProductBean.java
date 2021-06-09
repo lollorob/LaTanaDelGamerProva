@@ -1,0 +1,7 @@
+package it.unisa.model;
+
+import java.io.Serializable;
+
+public class ProductBean implements Serializable {
+
+}
