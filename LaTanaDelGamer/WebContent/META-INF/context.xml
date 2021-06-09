@@ -5,7 +5,7 @@
         auth="Container"
         driverClassName="com.mysql.cj.jdbc.Driver"
         type="javax.sql.DataSource"
-        username="lollorob"
-        password="admin"
+        username="root"
+        password="Francesc01!"
         url="jdbc:mysql://localhost:3306/la_tana_del_gamer?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;autoReconnect=true&amp;serverTimezone=UTC&amp;useSSL=false&amp;allowPublicKeyRetrieval=true" /> 
 </Context>
