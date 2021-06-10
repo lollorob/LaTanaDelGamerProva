@@ -39,6 +39,7 @@ create table Prodotto
     prezzo float NOT NULL,
     descrizione varchar(500) NOT NULL,
     casaproduttrice varchar(50) NOT NULL,
+    quantita int not NULL,
     copertina mediumblob NOT NULL,
     nome_categoria varchar(50) NOT NULL,
     PRIMARY KEY(id_prodotto),
@@ -121,10 +122,10 @@ INSERT INTO Categoria VALUES ("Picchiaduro","Videogiochi dove lo scopo principal
 INSERT INTO Categoria VALUES ("Gestionali","Videogiochi che simulano azioni della vita quotidiana e richiedono al giocatore il controllo completo su una certa attivitÃ . ");
 
 
-INSERT INTO Prodotto VALUES (1,"Call of Duty:Modern Warfare",19.90,"Call of Duty: Modern Warfare Ã¨ un videogioco sparatutto in prima persona, sviluppato da Infinity Ward per le piattaforme PlayStation 4, Xbox One e per PC. Il videogioco Ã¨ stato pubblicato il 25 ottobre 2019.","Activision","","Sparatutto");
-INSERT INTO Prodotto VALUES (2,"Formula 1 2021",69.99,"F1 2021 Ã¨ il gioco F1 piÃ¹ completo di sempre, mettendo i giocatori saldamente al posto di guida mentre gareggiano contro i migliori piloti del mondo.","Codemasters","","Corsa");
-INSERT INTO Prodotto VALUES (3,"Fifa 2021",79.99,"Fifa 21 Ã¨ il videogioco di calcio piÃ¹ famoso di sempre.Le sue modalitÃ  online sono le piÃ¹ amate da tutta la community","Electronic Arts","","Sportivi");
-INSERT INTO Prodotto VALUES (4,"Efootball Pes 2022",79.99,"Pes 2022 Ã¨ un videogioco di calcio, sviluppato da Konami e appartenente alla serie PES, uscito sul mercato nel 2020 in Nord America e in Europa, e in Giappone per le piattaforme PlayStation 4, Xbox One e Microsoft Windows. Si tratta del ventunesimo capitolo della serie.","Konami","","Sportivi"); 
+INSERT INTO Prodotto VALUES (1,"Call of Duty:Modern Warfare",19.90,"Call of Duty: Modern Warfare Ã¨ un videogioco sparatutto in prima persona, sviluppato da Infinity Ward per le piattaforme PlayStation 4, Xbox One e per PC. Il videogioco Ã¨ stato pubblicato il 25 ottobre 2019.","Activision",6,"","Sparatutto");
+INSERT INTO Prodotto VALUES (2,"Formula 1 2021",69.99,"F1 2021 Ã¨ il gioco F1 piÃ¹ completo di sempre, mettendo i giocatori saldamente al posto di guida mentre gareggiano contro i migliori piloti del mondo.","Codemasters",5,"","Corsa");
+INSERT INTO Prodotto VALUES (3,"Fifa 2021",79.99,"Fifa 21 Ã¨ il videogioco di calcio piÃ¹ famoso di sempre.Le sue modalitÃ  online sono le piÃ¹ amate da tutta la community","Electronic Arts",2,"","Sportivi");
+INSERT INTO Prodotto VALUES (4,"Efootball Pes 2022",79.99,"Pes 2022 Ã¨ un videogioco di calcio, sviluppato da Konami e appartenente alla serie PES, uscito sul mercato nel 2020 in Nord America e in Europa, e in Giappone per le piattaforme PlayStation 4, Xbox One e Microsoft Windows. Si tratta del ventunesimo capitolo della serie.","Konami",2,"","Sportivi"); 
 
 
 INSERT INTO Incluso VALUES (1,3,2);
