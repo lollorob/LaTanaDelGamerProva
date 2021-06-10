@@ -31,7 +31,7 @@ public class AccountUserControl extends HttpServlet {
 		
 		try {
 			request.setAttribute("accounts", model.doRetrieveAll(""));
-			
+			if (action != null) {
 			if (action.equals("insert")) {
 				String username = request.getParameter("username");
 				String e_mail = request.getParameter("e_mail");
@@ -100,6 +100,7 @@ public class AccountUserControl extends HttpServlet {
 
 				model.doUpdate(account);
 				request.setAttribute("message", "Account " + account.getUsername() + " AGGIORNATO");
+			}
 			}
 		} catch(SQLException e) {
 			Utility.print(e);

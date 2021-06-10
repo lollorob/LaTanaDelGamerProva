@@ -46,7 +46,9 @@
 				<td><%=bean.getn_Ordini()%></td>
 				<td>
 					
-					<a href="<%=response.encodeURL("AccountUserControl?action=delete&id=" + bean.getUsername())%>">Delete</a>		
+					<a href="<%=response.encodeURL("AccountUserControl?action=delete&id=" + bean.getUsername())%>">Delete</a>	
+					<a href="<%=response.encodeURL("AccountUserControl?action=insert&id=" + bean.getUsername())%>">Insert</a>
+					<a href="<%=response.encodeURL("AccountUserControl?action=insert&id=" + bean.getUsername())%>">Update</a>	
 				</td>
 			</tr>
 	<% 		} 
