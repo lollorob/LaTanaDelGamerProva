@@ -30,7 +30,7 @@
 		<th>Password</th>
 		<th>Nome</th>
 		<th>Cognome</th>
-		<th>DataDiNascita</th>
+		<th>Data Di Nascita</th>
 		<th>N-Ordini</th>
 		<th>Via</th>
 		<th>Numero</th>
