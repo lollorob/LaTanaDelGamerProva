@@ -27,7 +27,7 @@ public class AccountUserBean implements Serializable {
         passwd="";
         nome="";
         cognome="";
-        data="NNNN--NN-NN";
+        data="";
         n_Ordini=-1;
         via="";
         numero=-1;

@@ -32,7 +32,13 @@ public class AccountUserControl extends HttpServlet {
 		try {
 			request.setAttribute("accounts", model.doRetrieveAll(""));
 			if (action != null) {
-			if (action.equals("insert")) {
+				
+			if (action.equals("details")) {
+					String username = request.getParameter("id");
+					request.removeAttribute("account");
+					request.setAttribute("account", model.doRetrieveByKey(username));
+			}		
+			else if (action.equals("insert")) {
 				String username = request.getParameter("username");
 				String e_mail = request.getParameter("e_mail");
 				String passwd = request.getParameter("passwd");
