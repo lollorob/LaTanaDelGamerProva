@@ -11,6 +11,7 @@ public class ProdottoBean implements Serializable {
     float prezzo ;
     String descrizione ;
     String casaProduttrice;
+    int quantita;
     String nomeCategoria;
     private CategoriaBean categoria;
     
@@ -21,10 +22,19 @@ public class ProdottoBean implements Serializable {
         prezzo=-1;
         descrizione="" ;
         casaProduttrice="";
+        quantita = 0;
         nomeCategoria="";
     }
     
-    public int getId_prodotto() {
+    public int getQuantita() {
+		return quantita;
+	}
+
+	public void setQuantita(int quantita) {
+		this.quantita = quantita;
+	}
+
+	public int getId_prodotto() {
 		return id_prodotto;
 	}
 	public void setId_prodotto(int id_prodotto) {

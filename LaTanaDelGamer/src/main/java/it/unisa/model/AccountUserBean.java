@@ -109,6 +109,10 @@ public class AccountUserBean implements Serializable {
 		this.provincia = provincia;
 	}
 	
+	public boolean isEmpty() {
+		return username.equals("");
+	}
+	
 	@Override
 	public boolean equals(Object other) {
 		return this.getUsername() ==  ((AccountUserBean) other).getUsername();

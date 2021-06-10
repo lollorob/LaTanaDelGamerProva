@@ -9,6 +9,8 @@
  		response.sendRedirect(response.encodeRedirectUrl("./AccountUserControl"));
  		return;
  	}
+ 	
+ 	AccountUserBean product = (AccountUserBean) request.getAttribute("account");
  %>
  
 <!DOCTYPE html>
@@ -22,6 +24,14 @@
 
 <h1> Store Demo</h1>
 <h2>Accounts</h2>
+
+<table>
+	<tr>
+		<th>Username <a href="<%=response.encodeURL("AccountUserControl?sort=username")%>">Sort</a></th>
+		<th>E-Mail <a href="<%=response.encodeURL("AccountUserControl?sort=nome")%>">Sort</a></th>
+		<th>N-Ordini <a href="<%=response.encodeURL("AccountUserControl?sort=n_Ordini")%>">Sort</a></th>
+		<th>Action</th>
+	</tr>
 
 <table>
 	<tr>

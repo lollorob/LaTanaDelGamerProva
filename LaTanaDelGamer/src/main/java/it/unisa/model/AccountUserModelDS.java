@@ -24,8 +24,50 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 	
 	@Override
 	public AccountUserBean doRetrieveByKey(Object chiave) throws SQLException {
-		String username = (String)chiave;
-		return null;
+		String code = (String)chiave;
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		AccountUserBean account = new AccountUserBean();
+
+		String selectSQL = "SELECT * FROM accountuser WHERE code = ?";
+
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			preparedStatement.setInt(1, Integer.parseInt(code));
+
+			Utility.print("doRetrieveByKey: " + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			while (rs.next()) {
+				account.setUsername(rs.getString("username"));
+				account.seteMail(rs.getString("e_mail"));
+				account.setPasswd(rs.getString("passwd") );
+				account.setNome(rs.getString("nome"));
+				account.setCognome(rs.getString("cognome"));
+				account.setData(rs.getString("datadinascita"));
+				account.setn_Ordini(rs.getInt("n_ordini"));
+				account.setVia(rs.getString("via"));
+				account.setNumero(rs.getInt("numero"));
+				account.setCap(rs.getLong("cap"));
+				account.setCitta(rs.getString("citta"));
+				account.setProvincia(rs.getString("provincia"));
+			}
+
+			Utility.print(account.toString());
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+
+		return account;
 	}
 
 	@Override
@@ -83,20 +125,124 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 
 	@Override
 	public void doSave(AccountUserBean item) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String insertSQL = "INSERT INTO accountuser" + " (username,e_mail,passwd,nome,cognome,datadinascita,n_ordini,via,numero,cap,citta,provincia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(insertSQL);
+
+			preparedStatement.setString(1, item.getUsername());
+			preparedStatement.setString(2, item.geteMail());
+			preparedStatement.setString(3, item.getPasswd());
+			preparedStatement.setString(4, item.getNome());
+			preparedStatement.setString(5, item.getCognome());
+			preparedStatement.setString(6, item.getData());
+			preparedStatement.setInt(7, item.getn_Ordini());
+			preparedStatement.setString(8, item.getVia());
+			preparedStatement.setInt(9, item.getNumero());
+			preparedStatement.setLong(10, item.getCap());
+			preparedStatement.setString(11, item.getCitta());
+			preparedStatement.setString(12, item.getProvincia());
+			
+
+			Utility.print("doSave: " + preparedStatement.toString());
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
 		
 
 	}
 
 	@Override
 	public void doUpdate(AccountUserBean item) throws SQLException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String updateSQL = "UPDATE accountuser SET " + " e_mail = ?,passwd = ?,nome = ?,cognome = ?,datadinascita = ?,n_ordini = ?,via = ?,numero = ?,cap = ?,citta = ?,provincia = ? WHERE username = ?";
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(updateSQL);
+
+			
+			preparedStatement.setString(1, item.geteMail());
+			preparedStatement.setString(2, item.getPasswd());
+			preparedStatement.setString(3, item.getNome());
+			preparedStatement.setString(4, item.getCognome());
+			preparedStatement.setString(5, item.getData());
+			preparedStatement.setInt(6, item.getn_Ordini());
+			preparedStatement.setString(7, item.getVia());
+			preparedStatement.setInt(8, item.getNumero());
+			preparedStatement.setLong(9, item.getCap());
+			preparedStatement.setString(10, item.getCitta());
+			preparedStatement.setString(11, item.getProvincia());
+			
+			preparedStatement.setString(12, item.getUsername());
+
+			Utility.print("doUpdate: " + preparedStatement.toString());
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
 		
 
 	}
 
 	@Override
 	public void doDelete(AccountUserBean item) throws SQLException {
-		// TODO Auto-generated method stub
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String deleteSQL = "DELETE FROM accountuser WHERE username = ?";
+
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(deleteSQL);
+			preparedStatement.setString(1, item.getUsername());
+
+			Utility.print("doDelete: " + preparedStatement.toString());
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+	}
 
 	}
 
-}
