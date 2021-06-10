@@ -30,12 +30,12 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 
 		AccountUserBean account = new AccountUserBean();
 
-		String selectSQL = "SELECT * FROM accountuser WHERE code = ?";
+		String selectSQL = "SELECT * FROM accountuser WHERE username = ?";
 
 		try {
 			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setInt(1, Integer.parseInt(code));
+			preparedStatement.setString(1, code);
 
 			Utility.print("doRetrieveByKey: " + preparedStatement.toString());
 			ResultSet rs = preparedStatement.executeQuery();

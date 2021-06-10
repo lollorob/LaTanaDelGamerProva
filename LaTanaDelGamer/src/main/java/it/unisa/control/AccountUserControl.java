@@ -39,7 +39,7 @@ public class AccountUserControl extends HttpServlet {
 			    String nome = request.getParameter("nome");
 			    String cognome = request.getParameter("cognome");
 			    String data = request.getParameter("datadinascita");
-			    int n_Ordini = Integer.parseInt(request.getParameter("n_ordini"));;
+			    int n_Ordini = Integer.parseInt(request.getParameter("n_ordini"));
 			    String via = request.getParameter("via");
 			    int numero = Integer.parseInt(request.getParameter("numero"));
 			    long cap = Long.parseLong(request.getParameter("cap"));
