@@ -57,7 +57,7 @@ create table Ordine(
     tipo_pagamento varchar(50) not NULL,
     metodo_pagamento varchar(50) not NULL,
     PRIMARY KEY(id_ordine),
-    FOREIGN KEY (username) REFERENCES AccountUser(username)
+    FOREIGN KEY (username) REFERENCES AccountUser(username) ON UPDATE cascade ON DELETE cascade
 );
 
 
