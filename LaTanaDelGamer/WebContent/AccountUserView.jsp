@@ -30,16 +30,8 @@
 	<tr>
 		<th>Username</th>
 		<th>E-Mail</th>
-		<th>Password</th>
-		<th>Nome</th>
-		<th>Cognome</th>
 		<th>DataDiNascita</th>
 		<th>N-Ordini</th>
-		<th>Via</th>
-		<th>Numero</th>
-		<th>Cap</th>
-		<th>Città</th>
-		<th>Provincia</th>
 		<th>Azioni</th>
 	</tr>
 	<%
@@ -52,16 +44,9 @@
 		<tr>
 			<td><%=bean.getUsername() %></td>
 			<td><%=bean.geteMail() %></td>
-			<td><%=bean.getPasswd() %></td>
-			<td><%=bean.getNome() %></td>
-			<td><%=bean.getCognome() %></td>
 			<td><%=bean.getData() %></td>
 			<td><%=bean.getn_Ordini() %></td>
 			<td><%=bean.getVia() %></td>
-			<td><%=bean.getNumero() %></td>
-			<td><%=bean.getCap() %></td>
-			<td><%=bean.getCitta() %></td>
-			<td><%=bean.getProvincia() %></td>
 			<td>
 			<a href="<%=response.encodeURL("AccountUserControl?action=details&id=" + bean.getUsername())%>">Details</a>
 			<a href="<%=response.encodeURL("AccountUserControl?action=delete&id=" + bean.getUsername())%>">Delete</a>	
@@ -75,8 +60,10 @@
 	<% } %>
 </table>
 	
+	<% AccountUserBean account1 = (AccountUserBean) request.getAttribute("account1");%>
+	
 	<%
-		if(account!= null) {  
+		if(account1!= null && !account1.isEmpty()) {  
 	%>
 	
 		<h2>Details</h2>
@@ -85,51 +72,65 @@
 				<th>Username</th>
 				<th>Nome</th>
 				<th>Cognome</th>
+				<th>Via</th>
+				<th>Numero</th>
+				<th>CAP</th>
+				<th>Citta</th>
+				<th>Provincia</th>
 			</tr>
 			
 			<tr>
-				<td><%=account.getUsername()%></td>
-				<td><%=account.getNome() %></td>
-				<td><%=account.getCognome()%></td>	
+				<td><%=account1.getUsername()%></td>
+				<td><%=account1.getNome() %></td>
+				<td><%=account1.getCognome()%></td>
+				<td><%=account1.getVia()%></td>
+				<td><%=account1.getNumero()%></td>
+				<td><%=account1.getCap()%></td>
+				<td><%=account1.getCitta()%></td>	
+				<td><%=account1.getProvincia()%></td>
 			</tr>
 		</table>
 		
 		<form action="<%=response.encodeURL("AccountUserControl")%>" method="POST">
+			
 			<fieldset>
 				<legend><b>Update</b></legend>
 				<input type="hidden" name="action" value="update">
-				<input type="hidden" name="username" value="<%=account.getUsername()%>">
+				<input type="hidden" name="username" value="<%=account1.getUsername()%>">
 				
 				
 				<label for="e_mail">EMAIL:</label><br>
-				<input id="e_mail" name="e_mail"  type="email" maxlength="100" placeholder="enter email" required><%=account.geteMail()%><br>
+				<input id="e_mail" name="e_mail"  type="email" maxlength="100" placeholder="inserisci email" required value="<%=account1.geteMail()%>"><br>
 
 				<label for="nome">Nome:</label><br>
-				<input id="nome" name="nome" type="text" maxlength="20" placeholder="enter name" required value="<%=account.getNome()%>"><br>
+				<input id="nome" name="nome" type="text" maxlength="20" placeholder="inserisci name" required value="<%=account1.getNome()%>"><br>
 
 				<label for="cognome">Cognome:</label><br>
-				<input id="cognome" name="cognome" type="text" required value="<%=account.getCognome()%>"><br>
+				<input id="cognome" name="cognome" type="text" required value="<%=account1.getCognome()%>"><br>
 
-				<label for="datadinascita">Data(YYYY-MM-DD):</label><br>
-				<input id="datadinascita" name="datadinascita" type ="date" required><%=account.getData()%><br>
+				<label for="passwd">Password:</label><br>
+				<input id="passwd" name="passwd" type="password" min="5" placeholder="inserisci password" required value="<%=account1.getPasswd()%>"><br>
+
+				<label for="datadinascita">Data di nascita:</label><br>
+				<input id="datadinascita" name="datadinascita" type ="date" required value="<%=account1.getData()%>"><br>
 
 				<label for="n_ordini">N Ordini:</label><br>
-				<input id="n_ordini" name="n_ordini" type="number" min="0" required value="<%=account.getn_Ordini()%>"><br>
+				<input readonly id="n_ordini" name="n_ordini" type="number" min="0" required value="<%=account1.getn_Ordini()%>"><br>
 
 				<label for="via">Via:</label><br>
-				<input id="via" name="via" type="text" maxlength="20" placeholder="enter via" required value="<%=account.getVia()%>"><br>
+				<input id="via" name="via" type="text" maxlength="20" placeholder="inserisci via" required value="<%=account1.getVia()%>"><br>
 
 				<label for="numero">Numero:</label><br>
-				<input id="numero" name="numero" type="number" min="1" required value="<%=account.getNumero()%>"><br>		
+				<input id="numero" name="numero" type="number" min="1" placeholder="inserisci numero" required value="<%=account1.getNumero()%>"><br>		
 
 				<label for="cap">CAP:</label><br>
-				<input id="cap" name="cap" type="number" min="1" required value="<%=account.getCap()%>"><br>
+				<input id="cap" name="cap" type="number" min="1" required  placeholder="inserisci cap" value="<%=account1.getCap()%>"><br>
 
 				<label for="citta">Città:</label><br>
-				<input id="citta" name="citta" type="text" maxlength="20" placeholder="enter citta" required value="<%=account.getCitta()%>"><br>
+				<input id="citta" name="citta" type="text" maxlength="20" placeholder="inserisci città" required value="<%=account1.getCitta()%>"><br>
 
 				<label for="prvincia">Provincia:</label><br>
-				<input id="provincia" name="provincia" type="text" maxlength="20" placeholder="enter via" required value="<%=account.getProvincia()%>"><br>
+				<input id="provincia" name="provincia" type="text" maxlength="20" placeholder="inserisci via" required value="<%=account1.getProvincia()%>"><br>
 
 				
 				<input type="submit" value="Update">
@@ -163,10 +164,10 @@
 		<input id="username" name="username" type="text" maxlength="20" placeholder="Inserisci username" required><br>
 		
 		<label for="e_mail">EMAIL:</label><br>
-		<input id="e_mail" name="e_mail" type="email" maxlength="100" placeholder="enter email" required><br>
+		<input id="e_mail" name="e_mail" type="email" maxlength="100" placeholder="Inserisci email" required><br>
 		
 		<label for="passwd">Password:</label><br>
-		<input id="passwd" name="passwd" type="password" min="5" placeholder="enter password" required><br>
+		<input id="passwd" name="passwd" type="password" min="5" placeholder="Inserisci password" required><br>
 		
 		<label for="nome">Nome:</label><br>
 		<input id="nome" name="nome" type="text" maxlength="20" placeholder="Inserisci nome" required><br>
@@ -178,19 +179,19 @@
 		<input id="datadinascita" name="datadinascita" type="date" required><br>
 		
 		<label for="via">Via:</label><br>
-		<input id="via" name="via" type="text" placeholder="enter via" required><br>
+		<input id="via" name="via" type="text" placeholder="enter via"placeholder="Inserisci via" required><br>
 
 		<label for="numero">Numero:</label><br>
-		<input id="numero" name="numero" type="number" min="1" required><br>		
+		<input id="numero" name="numero" type="number" min="1"placeholder="Inserisci numero" required><br>		
 
 		<label for="cap">CAP:</label><br>
 		<input id="cap" name="cap" type="text" required><br>
 
 		<label for="citta">Città:</label><br>
-		<input id="citta" name="citta" type="text" maxlength="20" placeholder="enter citta" required><br>
+		<input id="citta" name="citta" type="text" maxlength="20" placeholder="Inserisci città" required><br>
 
 		<label for="prvincia">Provincia:</label><br>
-		<input id="provincia" name="provincia" type="text" maxlength="20" placeholder="enter via" required ><br>
+		<input id="provincia" name="provincia" type="text" maxlength="20" placeholder="Inserisci provincia" required ><br>
 		
 		<input type="submit" value="Insert">
 		<input type="reset" value="Reset">
