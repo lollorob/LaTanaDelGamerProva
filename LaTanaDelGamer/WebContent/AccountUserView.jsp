@@ -77,6 +77,7 @@
 				<th>CAP</th>
 				<th>Citta</th>
 				<th>Provincia</th>
+				<th>Admin</th>
 			</tr>
 			
 			<tr>
@@ -88,6 +89,7 @@
 				<td><%=account1.getCap()%></td>
 				<td><%=account1.getCitta()%></td>	
 				<td><%=account1.getProvincia()%></td>
+				<td><%=account1.isAdmin()%></td>
 			</tr>
 		</table>
 		
@@ -131,7 +133,7 @@
 
 				<label for="prvincia">Provincia:</label><br>
 				<input id="provincia" name="provincia" type="text" maxlength="20" placeholder="inserisci via" required value="<%=account1.getProvincia()%>"><br>
-
+	
 				
 				<input type="submit" value="Update">
 				<input type="reset" value="Reset">
@@ -192,6 +194,13 @@
 
 		<label for="prvincia">Provincia:</label><br>
 		<input id="provincia" name="provincia" type="text" maxlength="20" placeholder="Inserisci provincia" required ><br>
+		
+			<label for="is_admin">Admin:</label>
+
+				<select name="is_admin" id="is_admin" required>
+  					<option value="true">Sì</option>
+  					<option value="false">No</option>
+				</select>
 		
 		<input type="submit" value="Insert">
 		<input type="reset" value="Reset">

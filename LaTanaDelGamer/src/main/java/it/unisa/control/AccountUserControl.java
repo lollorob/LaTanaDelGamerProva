@@ -51,7 +51,10 @@ public class AccountUserControl extends HttpServlet {
 			    long cap = Long.parseLong(request.getParameter("cap"));
 			    String citta = request.getParameter("citta");
 			    String provincia = request.getParameter("provincia");
-
+			    boolean admin=Boolean.parseBoolean(request.getParameter("is_admin"));
+			    
+			    
+			    
 				AccountUserBean account = new AccountUserBean();
 				
 				account.setUsername(username);
@@ -66,6 +69,7 @@ public class AccountUserControl extends HttpServlet {
 				account.setCap(cap);
 				account.setCitta(citta);
 				account.setProvincia(provincia);
+				account.setAdmin(admin);
 
 				model.doSave(account);
 				request.setAttribute("message", "Account " + account.getUsername() + " AGGIUNTO");
@@ -79,11 +83,9 @@ public class AccountUserControl extends HttpServlet {
 			} else if (action.equals("update")) {
 				String username = request.getParameter("username");
 				String e_mail = request.getParameter("e_mail");
-				String passwd = request.getParameter("passwd");
 			    String nome = request.getParameter("nome");
 			    String cognome = request.getParameter("cognome");
 			    String data = request.getParameter("datadinascita");
-			    int n_Ordini = Integer.parseInt(request.getParameter("n_ordini"));;
 			    String via = request.getParameter("via");
 			    int numero = Integer.parseInt(request.getParameter("numero"));
 			    long cap = Long.parseLong(request.getParameter("cap"));
@@ -93,11 +95,11 @@ public class AccountUserControl extends HttpServlet {
 				AccountUserBean account = new AccountUserBean();
 				account.setUsername(username);
 				account.seteMail(e_mail);
-				account.setPasswd(passwd);
+
 				account.setNome(nome);
 				account.setCognome(cognome);
 				account.setData(data);
-				account.setn_Ordini(n_Ordini);
+
 				account.setVia(via);
 				account.setNumero(numero);
 				account.setCap(cap);
@@ -131,5 +133,5 @@ public class AccountUserControl extends HttpServlet {
 	
 		doGet(request, response);
 	}
-scemo
+
 }

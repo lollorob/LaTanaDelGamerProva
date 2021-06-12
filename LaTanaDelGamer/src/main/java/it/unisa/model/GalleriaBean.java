@@ -8,7 +8,7 @@ public class GalleriaBean implements Serializable {
 	
 	int id_media;
 	int id_prodotto;
-	ProdottoBean prodotto;
+	private ProdottoBean prodotto;
 	
 	public int getId_media() {
 		return id_media;

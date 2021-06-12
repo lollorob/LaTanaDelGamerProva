@@ -3,8 +3,16 @@ package it.unisa.model;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import javax.sql.DataSource;
+
 public class RecensioneModelDS implements EntityModel<RecensioneBean> {
 
+	private DataSource ds = null;
+	
+	public RecensioneModelDS(DataSource ds) {
+		this.ds = ds;
+	}
+	
 	@Override
 	public RecensioneBean doRetrieveByKey(Object chiave) throws SQLException {
 		// TODO Auto-generated method stub
