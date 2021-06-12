@@ -3,8 +3,18 @@ package it.unisa.model;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import javax.sql.DataSource;
+
 public class InclusoModelDS implements EntityModel<InclusoBean> {
 
+	
+	private DataSource ds = null;
+	
+	public InclusoModelDS(DataSource ds) {
+		this.ds = ds;
+	}
+	
+	
 	@Override
 	public InclusoBean doRetrieveByKey(Object chiave) throws SQLException {
 		// TODO Auto-generated method stub

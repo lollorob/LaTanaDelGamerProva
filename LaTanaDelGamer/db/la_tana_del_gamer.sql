@@ -19,7 +19,8 @@ create table AccountUser(
     numero int NOT NULL,
     cap long NOT NULL,
     citta varchar(50) NOT NULL,
-    provincia varchar(50) NOT NULL
+    provincia varchar(50) NOT NULL,
+    is_admin boolean NOT NULL
 );
 
 DROP TABLE IF EXISTS Categoria;
@@ -96,10 +97,10 @@ create table Galleria
     FOREIGN KEY(id_prodotto) REFERENCES Prodotto(id_prodotto) ON UPDATE cascade ON DELETE cascade
 );
 
-INSERT INTO AccountUser VALUES ("robbest","balestrieri00@gmail.com",MD5("Napoli1926"),"Roberto","Balestrieri","2000-10-03",2,"via Nazionale",6,80050,"Pimonte","Napoli");
-INSERT INTO AccountUser VALUES ("lollo","lollo00@gmail.com",MD5("lollo1926"),"Lorenzo Lucio","Ruocco","2000-04-27",0,"via Roma",48,80054,"Gragnano","Napoli");
-INSERT INTO AccountUser VALUES ("boomy07","pako@outlook.it",MD5("ilovepizza"),"Pasquale","Sicignano","2000-05-07",0,"via San Sebastiano",5,80054,"Gragnano","Napoli");
-INSERT INTO AccountUser VALUES ("mason9321","antonellostarax@libero.it",MD5("codismylife"),"Antonello","Starace","1993-10-12",0,"via Vittorio Veneto",121,80321,"Fisciano","Salerno");
+INSERT INTO AccountUser VALUES ("robbest","balestrieri00@gmail.com",MD5("Napoli1926"),"Roberto","Balestrieri","2000-10-03",2,"via Nazionale",6,80050,"Pimonte","Napoli",1);
+INSERT INTO AccountUser VALUES ("lollo","lollo00@gmail.com",MD5("lollo1926"),"Lorenzo Lucio","Ruocco","2000-04-27",0,"via Roma",48,80054,"Gragnano","Napoli",1);
+INSERT INTO AccountUser VALUES ("boomy07","pako@outlook.it",MD5("ilovepizza"),"Pasquale","Sicignano","2000-05-07",0,"via San Sebastiano",5,80054,"Gragnano","Napoli",0);
+INSERT INTO AccountUser VALUES ("mason9321","antonellostarax@libero.it",MD5("codismylife"),"Antonello","Starace","1993-10-12",0,"via Vittorio Veneto",121,80321,"Fisciano","Salerno",0);
 
 INSERT INTO Ordine VALUES (1,"2021-05-04","robbest","giorgiameloni@gmail.com",198.46,"Master Card","5345 6548 2564 5612");
 INSERT INTO Ordine VALUES (2,"2021-11-12","robbest","luciano1293@gmail.com",10.98,"Visa","4931 6548 2564 5612");
@@ -122,10 +123,10 @@ INSERT INTO Categoria VALUES ("Picchiaduro","Videogiochi dove lo scopo principal
 INSERT INTO Categoria VALUES ("Gestionali","Videogiochi che simulano azioni della vita quotidiana e richiedono al giocatore il controllo completo su una certa attivitÃ . ");
 
 
-INSERT INTO Prodotto VALUES (1,"Call of Duty:Modern Warfare",19.90,"Call of Duty: Modern Warfare Ã¨ un videogioco sparatutto in prima persona, sviluppato da Infinity Ward per le piattaforme PlayStation 4, Xbox One e per PC. Il videogioco Ã¨ stato pubblicato il 25 ottobre 2019.","Activision",6,"","Sparatutto");
-INSERT INTO Prodotto VALUES (2,"Formula 1 2021",69.99,"F1 2021 Ã¨ il gioco F1 piÃ¹ completo di sempre, mettendo i giocatori saldamente al posto di guida mentre gareggiano contro i migliori piloti del mondo.","Codemasters",5,"","Corsa");
-INSERT INTO Prodotto VALUES (3,"Fifa 2021",79.99,"Fifa 21 Ã¨ il videogioco di calcio piÃ¹ famoso di sempre.Le sue modalitÃ  online sono le piÃ¹ amate da tutta la community","Electronic Arts",2,"","Sportivi");
-INSERT INTO Prodotto VALUES (4,"Efootball Pes 2022",79.99,"Pes 2022 Ã¨ un videogioco di calcio, sviluppato da Konami e appartenente alla serie PES, uscito sul mercato nel 2020 in Nord America e in Europa, e in Giappone per le piattaforme PlayStation 4, Xbox One e Microsoft Windows. Si tratta del ventunesimo capitolo della serie.","Konami",2,"","Sportivi"); 
+INSERT INTO Prodotto VALUES (1,"Call of Duty:Modern Warfare",19.90,"Call of Duty: Modern Warfare� un videogioco sparatutto in prima persona, sviluppato da Infinity Ward per le piattaforme PlayStation 4, Xbox One e per PC. Il videogioco e' stato pubblicato il 25 ottobre 2019.","Activision",6,"","Sparatutto");
+INSERT INTO Prodotto VALUES (2,"Formula 1 2021",69.99,"F1 2021 e' il gioco F1 piu' completo di sempre, mettendo i giocatori saldamente al posto di guida mentre gareggiano contro i migliori piloti del mondo.","Codemasters",5,"","Corsa");
+INSERT INTO Prodotto VALUES (3,"Fifa 2021",79.99,"Fifa 21 e' il videogioco di calcio piu'famoso di sempre.Le sue modalita'� online sono le piu' amate da tutta la community","Electronic Arts",2,"","Sportivi");
+INSERT INTO Prodotto VALUES (4,"Efootball Pes 2022",79.99,"Pes 2022 e' un videogioco di calcio, sviluppato da Konami e appartenente alla serie PES, uscito sul mercato nel 2020 in Nord America e in Europa, e in Giappone per le piattaforme PlayStation 4, Xbox One e Microsoft Windows. Si tratta del ventunesimo capitolo della serie.","Konami",2,"","Sportivi"); 
 
 
 INSERT INTO Incluso VALUES (1,3,2);

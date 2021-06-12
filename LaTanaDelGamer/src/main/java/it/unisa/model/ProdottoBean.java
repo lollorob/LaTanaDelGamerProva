@@ -13,6 +13,7 @@ public class ProdottoBean implements Serializable {
     String casaProduttrice;
     int quantita;
     String nomeCategoria;
+    
     private CategoriaBean categoria;
     
 
