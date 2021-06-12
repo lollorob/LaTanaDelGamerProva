@@ -13,9 +13,7 @@ public class OrdineBean implements Serializable {
 	float importo;
 	String tipo_pagamento;
 	String metodo_pagamento;
-	
-	
-	private AccountUserBean account;
+	AccountUserBean account;
 	
 	public OrdineBean() {
 		id_ordine = 0;

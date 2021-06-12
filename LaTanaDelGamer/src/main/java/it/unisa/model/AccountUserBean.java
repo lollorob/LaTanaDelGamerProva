@@ -1,7 +1,6 @@
 package it.unisa.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class AccountUserBean implements Serializable {
 
@@ -19,14 +18,9 @@ public class AccountUserBean implements Serializable {
     long cap;
     String citta;
     String provincia;
-    boolean isAdmin;
     
-   
-
-	private List<OrdineBean> listaOrdini;
     
-
-	public AccountUserBean() {
+    public AccountUserBean() {
     	
     	username="";
         eMail="";
@@ -118,24 +112,7 @@ public class AccountUserBean implements Serializable {
 	public boolean isEmpty() {
 		return username.equals("");
 	}
-		
-	public List<OrdineBean> getListaOrdini() {
-		return listaOrdini;
-	}
-
-	public void setListaOrdini(List<OrdineBean> listaOrdini) {
-		this.listaOrdini = listaOrdini;
-	}
-
 	
-	 public boolean isAdmin() {
-			return isAdmin;
-		}
-
-		public void setAdmin(boolean isAdmin) {
-			this.isAdmin = isAdmin;
-		}
-		
 	@Override
 	public boolean equals(Object other) {
 		return this.getUsername() ==  ((AccountUserBean) other).getUsername();
@@ -146,5 +123,5 @@ public class AccountUserBean implements Serializable {
 		return username + " (" +eMail+ ", " + passwd + ", " + nome + ", " + cognome + ", " + data + ", " +n_Ordini + ", " + via + ", " + numero + ", " + cap + ", " + citta + ", " + provincia+ ") ";
 		
 	}
-
+    	
 }

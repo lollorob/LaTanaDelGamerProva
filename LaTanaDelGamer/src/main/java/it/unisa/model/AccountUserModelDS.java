@@ -53,7 +53,6 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 				account.setCap(rs.getLong("cap"));
 				account.setCitta(rs.getString("citta"));
 				account.setProvincia(rs.getString("provincia"));
-				account.setAdmin(rs.getBoolean("is_admin"));
 			}
 
 			Utility.print(account.toString());
@@ -107,7 +106,6 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 				account.setCap(rs.getLong("cap"));
 				account.setCitta(rs.getString("citta"));
 				account.setProvincia(rs.getString("provincia"));
-				account.setAdmin(rs.getBoolean("is_admin"));
 				
 				accounts.add(account);
 			}
@@ -130,7 +128,7 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO accountuser" + " (username,e_mail,passwd,nome,cognome,datadinascita,n_ordini,via,numero,cap,citta,provincia,is_admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO accountuser" + " (username,e_mail,passwd,nome,cognome,datadinascita,n_ordini,via,numero,cap,citta,provincia) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -149,7 +147,7 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 			preparedStatement.setLong(10, item.getCap());
 			preparedStatement.setString(11, item.getCitta());
 			preparedStatement.setString(12, item.getProvincia());
-			preparedStatement.setBoolean(13, item.isAdmin());
+			
 
 			Utility.print("doSave: " + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -175,7 +173,7 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String updateSQL = "UPDATE accountuser SET " + " e_mail = ?,nome = ?,cognome = ?,datadinascita = ?,via = ?,numero = ?,cap = ?,citta = ?,provincia = ? WHERE username = ?";
+		String updateSQL = "UPDATE accountuser SET " + " e_mail = ?,passwd = ?,nome = ?,cognome = ?,datadinascita = ?,n_ordini = ?,via = ?,numero = ?,cap = ?,citta = ?,provincia = ? WHERE username = ?";
 
 		try {
 			connection = ds.getConnection();
@@ -183,17 +181,19 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 			preparedStatement = connection.prepareStatement(updateSQL);
 
 			
-			preparedStatement.setString(1, item.geteMail());			
-			preparedStatement.setString(2, item.getNome());
-			preparedStatement.setString(3, item.getCognome());
-			preparedStatement.setString(4, item.getData());
-			preparedStatement.setString(5, item.getVia());
-			preparedStatement.setInt(6, item.getNumero());
-			preparedStatement.setLong(7, item.getCap());
-			preparedStatement.setString(8, item.getCitta());
-			preparedStatement.setString(9, item.getProvincia());
+			preparedStatement.setString(1, item.geteMail());
+			preparedStatement.setString(2, item.getPasswd());
+			preparedStatement.setString(3, item.getNome());
+			preparedStatement.setString(4, item.getCognome());
+			preparedStatement.setString(5, item.getData());
+			preparedStatement.setInt(6, item.getn_Ordini());
+			preparedStatement.setString(7, item.getVia());
+			preparedStatement.setInt(8, item.getNumero());
+			preparedStatement.setLong(9, item.getCap());
+			preparedStatement.setString(10, item.getCitta());
+			preparedStatement.setString(11, item.getProvincia());
 			
-			preparedStatement.setString(10, item.getUsername());
+			preparedStatement.setString(12, item.getUsername());
 
 			Utility.print("doUpdate: " + preparedStatement.toString());
 			preparedStatement.executeUpdate();
