@@ -131,6 +131,7 @@ INSERT INTO Prodotto VALUES (4,"Efootball Pes 2022",79.99,"Pes 2022 e' un videog
 
 INSERT INTO Incluso VALUES (1,3,2);
 INSERT INTO Incluso VALUES (1,2,1);
+INSERT INTO Incluso VALUES (2,4,3);
 
 INSERT INTO Recensione VALUES(1,"Giorgio",4,"A parte qualche bug,gioco molto divertente",1);
 INSERT INTO Recensione VALUES(2,"Matteo",1,"GIOCO PESSIMO. SVILUPPATO SENZA VOGLIA,SOLDI BUTTATI",1);

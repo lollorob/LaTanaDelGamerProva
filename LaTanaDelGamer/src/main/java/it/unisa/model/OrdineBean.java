@@ -1,6 +1,8 @@
 package it.unisa.model;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class OrdineBean implements Serializable {
@@ -8,7 +10,7 @@ public class OrdineBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	int id_ordine;
-	String data_ordine;
+	LocalDate data_ordine;
 	String username;
 	String email_spedizione;
 	float importo;
@@ -22,7 +24,7 @@ public class OrdineBean implements Serializable {
 
 	public OrdineBean() {
 		id_ordine = 0;
-		data_ordine = "";
+		data_ordine = LocalDate.of(2000, 01, 01);
 		username = "";
 		email_spedizione = "";
 		importo = 0;
@@ -38,11 +40,12 @@ public class OrdineBean implements Serializable {
 		this.id_ordine = id_ordine;
 	}
 
-	public String getData_ordine() {
+	
+	public LocalDate getData_ordine() {
 		return data_ordine;
 	}
 
-	public void setData_ordine(String data_ordine) {
+	public void setData_ordine(LocalDate data_ordine) {
 		this.data_ordine = data_ordine;
 	}
 
