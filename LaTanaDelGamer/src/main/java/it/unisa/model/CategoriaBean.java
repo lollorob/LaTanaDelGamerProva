@@ -1,17 +1,22 @@
 package it.unisa.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class CategoriaBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	String nome;
-	String descrizione;
+	String didascalia;
+	
+	
+	
+	private List<ProdottoBean> prodotto;
 	
 	public CategoriaBean() {
 		nome = "";
-		descrizione = "";
+		didascalia= "";
 	}
 
 	public String getNome() {
@@ -22,12 +27,21 @@ public class CategoriaBean implements Serializable {
 		this.nome = nome;
 	}
 
-	public String getDescrizione() {
-		return descrizione;
+	public String getDidascalia() {
+		return didascalia;
 	}
 
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
+	public void setDidascalia(String didascalia) {
+		this.didascalia = didascalia;
+	}
+	
+
+	public List<ProdottoBean> getProdotto() {
+		return prodotto;
+	}
+
+	public void setProdotto(List<ProdottoBean> prodotto) {
+		this.prodotto = prodotto;
 	}
 
 	@Override
@@ -37,7 +51,7 @@ public class CategoriaBean implements Serializable {
 	
 	@Override
 	public String toString() {
-		return nome + " (" + descrizione + ") ";
+		return nome + " (" + didascalia + ") ";
 	}
 
 }

@@ -12,7 +12,18 @@ public class ProdottoBean implements Serializable {
     String descrizione ;
     String casaProduttrice;
     int quantita;
-    String nomeCategoria;
+    String copertina;
+    
+    
+    public String getCopertina() {
+		return copertina;
+	}
+
+	public void setCopertina(String copertina) {
+		this.copertina = copertina;
+	}
+
+	String nomeCategoria;
     private CategoriaBean categoria;
     
 
@@ -23,6 +34,7 @@ public class ProdottoBean implements Serializable {
         descrizione="" ;
         casaProduttrice="";
         quantita = 0;
+        copertina="";
         nomeCategoria="";
     }
     

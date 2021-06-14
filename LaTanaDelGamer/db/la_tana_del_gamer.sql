@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS Categoria;
 create table Categoria
 (
 	nome varchar(30) NOT NULL,
-    descrizione varchar(500) NOT NULL,
+    didascalia varchar(500) NOT NULL,
     PRIMARY KEY(nome)
 );
 

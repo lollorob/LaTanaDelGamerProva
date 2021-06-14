@@ -1,6 +1,7 @@
 package it.unisa.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class OrdineBean implements Serializable {
 
@@ -14,9 +15,11 @@ public class OrdineBean implements Serializable {
 	String tipo_pagamento;
 	String metodo_pagamento;
 	
+	private List<ProdottoBean> listaProdotti;
 	
 	private AccountUserBean account;
 	
+
 	public OrdineBean() {
 		id_ordine = 0;
 		data_ordine = "";
@@ -89,6 +92,14 @@ public class OrdineBean implements Serializable {
 
 	public void setAccount(AccountUserBean account) {
 		this.account = account;
+	}
+	
+	public List<ProdottoBean> getListaProdotti() {
+		return listaProdotti;
+	}
+
+	public void setListaProdotti(List<ProdottoBean> listaProdotti) {
+		this.listaProdotti = listaProdotti;
 	}
 	
 	@Override
