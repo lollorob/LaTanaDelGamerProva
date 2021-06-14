@@ -256,6 +256,9 @@ public class OrdineModelDS implements EntityModel<OrdineBean> {
 			
 			while(rs.next()) {
 				int ordineID= rs.getInt("id_ordine");
+				if(!tabellaOrdini.containsKey(ordineID)) {
+					
+				}
 				
 				
 				
