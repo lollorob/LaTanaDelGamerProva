@@ -5,9 +5,11 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -235,14 +237,11 @@ public class OrdineModelDS implements EntityModel<OrdineBean> {
 		String selectSQL = "SELECT * FROM incluso i, ordine o,prodotto p, categoria c WHERE i.id_ordine=o.id_ordine AND  i.id_prodotto=p.id_prodotto AND c.nome=p.nome_categoria AND o.username='" + username +"'";
 		
 		
-		Collection<OrdineBean> ordini = new LinkedList<OrdineBean>();
-		Collection<ProdottoBean> prodotti = new LinkedList<ProdottoBean>();
-		Collection<CategoriaBean> categorie = new LinkedList<CategoriaBean>();
 		
 		OrdineBean ordine = new OrdineBean();
 		ProdottoBean prodotto= new ProdottoBean();
 		CategoriaBean categoria= new CategoriaBean();
-		Map<String,OrdineBean> tabellaOrdini = new LinkedHashMap<>(); //usiavo linked per preservare l'ordine degli inserimenti
+		Map<String,OrdineBean> tabellaOrdini = new LinkedHashMap<>(); //uso linked per preservare l'ordine degli inserimenti
 		
 		
 		
@@ -256,34 +255,33 @@ public class OrdineModelDS implements EntityModel<OrdineBean> {
 			
 			while(rs.next()) {
 				int ordineID= rs.getInt("id_ordine");
-				if(!tabellaOrdini.containsKey(ordineID)) {
-					
+				String stringa=Integer.toString(ordineID);				//se l' id ordine non è presente estraggo le informazioni e lo aggiungo alla tabella
+				if(!tabellaOrdini.containsKey(stringa)) {
+					ordine.setId_ordine(rs.getInt("id_ordine"));
+					ordine.setData_ordine(rs.getDate("data_ordine").toLocalDate());
+					ordine.setUsername(rs.getString("username") );
+					ordine.setEmail_spedizione(rs.getString("email_spedizione"));
+					ordine.setImporto(rs.getFloat("importo"));
+					ordine.setTipo_pagamento(rs.getString("tipo_pagamento"));
+					ordine.setMetodo_pagamento(rs.getString("metodo_pagamento"));				
+					ordine.setCarrello(new Carrello(new ArrayList<>()));	//aggiungo anche un carrello dove salvare i prodotti relativi all'ordine
+					tabellaOrdini.put(stringa, ordine);
 				}
 				
 				
-				
-				ordine.setId_ordine(rs.getInt("id_ordine"));
-				ordine.setData_ordine(rs.getDate("data_ordine").toLocalDate());
-				ordine.setUsername(rs.getString("username") );
-				ordine.setEmail_spedizione(rs.getString("email_spedizione"));
-				ordine.setImporto(rs.getFloat("importo"));
-				ordine.setTipo_pagamento(rs.getString("tipo_pagamento"));
-				ordine.setMetodo_pagamento(rs.getString("metodo_pagamento"));				
-				ordini.add(ordine);
-				
-				
-				prodotto.setId_prodotto(rs.getInt("id_prodotto"));
-				prodotto.setNome(rs.getString("nome"));
+				prodotto.setId_prodotto(rs.getInt("id_prodotto"));  // estraggo le informazioni relative ai prodotti
+				prodotto.setNome(rs.getString("nome"));				//e li aggiungo nella tabella
 				prodotto.setPrezzo(rs.getFloat("prezzo"));
 				prodotto.setDescrizione(rs.getString("descrizione"));
 				prodotto.setCasaproduttrice(rs.getString("casaproduttrice"));
 				prodotto.setQuantita(rs.getInt("quantita"));
 				prodotto.setnomeCategoria(rs.getString("nome_categoria"));
-				prodotti.add(prodotto);
 				
 				categoria.setNome(rs.getString("nome"));
 				categoria.setDidascalia(rs.getString("didascalia"));
-				categorie.add(categoria);
+				prodotto.setCategoria(categoria);
+				tabellaOrdini.get(stringa).getCarrello().addProdotto(prodotto,rs.getInt("quantita")); //aggiungo i prodotti all'oggetto carrello per memorizzarli
+				
 			}
 			
 		} finally {
@@ -296,7 +294,7 @@ public class OrdineModelDS implements EntityModel<OrdineBean> {
 			}
 		  }
 		
-		return ordini;
+		return new ArrayList<>(tabellaOrdini.values());
 	}
 
 

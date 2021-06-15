@@ -1,79 +1,53 @@
 package it.unisa.model;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 public class Carrello {
-	private ArrayList<ProdottoBean> carrello;
-	private double totale ;
+	private List<CarrelloItem> items;
 	
-	public Carrello () {
-		carrello = new ArrayList<>();
-		totale = 0.0;
+	
+	public Carrello (List<CarrelloItem> items) {
+		this.items=items;
 	}
 	
-	
-	public void aggiungiProdotto(ProdottoBean prodotto) {
-
-        boolean presente = false;
-        for (int i = 0; i < carrello.size(); i++)
-        {
-            if (carrello.get(i).getId_prodotto() == prodotto.getId_prodotto())
-            {
-                presente = true;
-            }
-        }
-        if (prodotto != null && presente == false)
-        {
-            this.carrello.add(prodotto);
-            this.totale = prodotto.getPrezzo() + totale;
-        }
+	public List<CarrelloItem> getCarrello(){
+		return items;
 	}
 	
-    public void svuotaCarrello()
-    {
-        carrello.removeAll(carrello);
-        this.totale = 0.0;
-    }
+	public void setCarrello(List<CarrelloItem> items) {
+			this.items=items;
+	}
+	
+	public double getTotale() {
+		double totale=0;
+		for(CarrelloItem item: items) {
+			totale += item.totale();
+		}
+		
+		return totale;
+	}
+	
+		
+	public void addProdotto(CarrelloItem item) {
 
-    public ProdottoBean doretrieveById(int id)
-    {
-        ProdottoBean prodotto = null;
-        for (int i = 0; i < carrello.size(); i++)
-        {
-            if (carrello.get(i).getId_prodotto() == id)
-            {
-                prodotto = carrello.get(i);
-            }
-        }
-        return prodotto;
-    }
+		items.add(item);
+	}
 
-    public ProdottoBean doretrieveByIndex(int index)
-    {
-        return carrello.get(index);
-    }
+	
+	public void deleteCarrelloItem(CarrelloItem item) {
+		items.remove(item);
+		
+	}
+	
 
-    public int getSize()
-    {
-        return this.carrello.size();
-    }
+	public void emptyCarrelloItems() {
+		items.clear();
+	}
 
-    public void rimuoviQuadrobyId(int id)
-    {
-        for (int i = 0; i < carrello.size(); i++)
-        {
-            ProdottoBean temp = carrello.get(i);
-            if (temp.getId_prodotto() == id)
-            {
-                this.totale = this.totale - temp.getPrezzo();
-                carrello.remove(i);
-            }
-        }
-    }
-
-    public Double getTotale()
-    {
-        return this.totale;
-    }
-
+	public void addProdotto(ProdottoBean prodotto, int quantita) {
+		items.add(new CarrelloItem(prodotto,quantita));	
+	}
+    
+    
 }
