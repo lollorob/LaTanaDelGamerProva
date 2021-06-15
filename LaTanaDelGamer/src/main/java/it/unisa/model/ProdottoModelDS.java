@@ -224,6 +224,69 @@ public class ProdottoModelDS implements EntityModel<ProdottoBean> {
 			}
 		}
 	}
+	
+	Collection<ProdottoBean> doRetrieveRecensioniByProdotto(int prodottoID) throws SQLException{
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+		String selectSQL = "SELECT * FROM recensione r ,prodotto p WHERE p.id_prodotto='" + prodottoID + "' AND p.id_prodotto=r.id_prodotto";
+		
+		
+		
+		Collection<ProdottoBean> prodotti = new LinkedList<ProdottoBean>();
+		
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+			
+			Utility.print("doRetrieveRecensioniByProdotto: " + preparedStatement.toString());
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			while(rs.next()) {
+				
+				ProdottoBean prodotto = new ProdottoBean(); 
+				prodotto.setId_prodotto(rs.getInt("id_prodotto"));
+				prodotto.setNome(rs.getString("nome"));
+				prodotto.setPrezzo(rs.getFloat("prezzo"));
+				prodotto.setCasaproduttrice(rs.getString("casaproduttrice"));
+				prodotto.setQuantita(rs.getInt("quantita"));
+				prodotto.setnomeCategoria(rs.getString("nome_categoria"));
+				prodotto.setRecensioni(new LinkedList<>());
+				
+				
+				RecensioneBean recensione = new RecensioneBean();
+				recensione.setId_recensione(rs.getInt("id_recensione"));
+				recensione.setNome(rs.getString("nome"));
+				recensione.setValutazione(rs.getInt("valutazione"));
+				recensione.setDescrizione(rs.getString("descrizione"));
+				recensione.setId_prodotto(rs.getInt("id_prodotto"));
+				prodotto.getRecensioni().add(recensione);
+				
+				
+	
+				while(rs.next()) { //estraggo solamente i dati relativi ai prodotti poiché i dati della categoria sono gli stessi
+					prodotto.getRecensioni().add(recensione);
+					
+				}
+			}
+			
+		} finally {
+			try {
+			if(preparedStatement != null)
+				preparedStatement.close();
+			}finally {
+			if(connection != null)
+				connection.close();
+			}
+		  }
+		
+		return prodotti;
+
+	}
+	
+	
+	
 
 	}
 

@@ -1,7 +1,6 @@
 package it.unisa.model;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 

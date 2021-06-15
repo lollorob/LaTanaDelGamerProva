@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
@@ -116,7 +115,7 @@ public class OrdineModelDS implements EntityModel<OrdineBean> {
 		return ordini;
 	}
 
-	@Override
+/*	@Override
 	public void doSave(OrdineBean item) throws SQLException {
 		
 		Connection connection = null;
@@ -155,7 +154,65 @@ public class OrdineModelDS implements EntityModel<OrdineBean> {
 			}
 		}
 
-	}
+}  */
+	
+	
+	@Override
+	public void doSave(OrdineBean item) throws SQLException {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		PreparedStatement preparedStatement1 = null;
+
+		String insertSQL = "INSERT INTO ordine" + " (id_ordine,data_ordine,username,email_spedizione,importo,tipo_pagamento,metodo_pagamento) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertSQL1="INSERT INTO incluso" + " (id_ordine,id_prodotto, quantita) VALUES (?, ?, ?)";
+		
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(insertSQL);
+			preparedStatement1 = connection.prepareStatement(insertSQL1);
+			
+			
+			preparedStatement.setInt(1, item.getId_ordine());
+			preparedStatement.setDate(2,Date.valueOf(item.getData_ordine()));
+			preparedStatement.setString(3, item.getUsername());
+			preparedStatement.setString(4, item.getEmail_spedizione());
+			preparedStatement.setFloat(5, item.getImporto());				//Inseriamo l'ordine nella tabella  ordine
+			preparedStatement.setString(6, item.getTipo_pagamento());
+			preparedStatement.setString(7, item.getMetodo_pagamento());
+			
+			
+			for(CarrelloItem itemCarrello : item.getCarrello().getItemsCarrello()) {
+			
+			
+			preparedStatement1.setInt(1, itemCarrello.getProdotto().getId_prodotto());
+			preparedStatement1.setInt(2, item.getId_ordine());						//Inseriamo nella tabella associativa di prodotto e ordine
+			preparedStatement1.setInt(3, itemCarrello.getProdotto().getQuantita());
+			preparedStatement1.executeUpdate();										// i vari attributi
+			Utility.print("doSaveIncluso: " + preparedStatement.toString());		
+			}
+
+			Utility.print("doSave: " + preparedStatement.toString());
+			preparedStatement.executeUpdate();
+
+			connection.commit();
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+
+}
+	
+	
+	
 
 	@Override
 	public void doUpdate(OrdineBean item) throws SQLException {

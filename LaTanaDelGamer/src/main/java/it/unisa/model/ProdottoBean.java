@@ -1,6 +1,7 @@
 package it.unisa.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ProdottoBean implements Serializable {
 
@@ -14,6 +15,8 @@ public class ProdottoBean implements Serializable {
     int quantita;
     String copertina;
     
+    private List<RecensioneBean> recensioni;
+    private List<GalleriaBean> galleria;
     
     public String getCopertina() {
 		return copertina;
@@ -91,6 +94,22 @@ public class ProdottoBean implements Serializable {
 		this.categoria = categoria;
 	}
 	
+	public List<RecensioneBean> getRecensioni() {
+		return recensioni;
+	}
+
+	public void setRecensioni(List<RecensioneBean> recensioni) {
+		this.recensioni = recensioni;
+	}
+
+	public List<GalleriaBean> getGalleria() {
+		return galleria;
+	}
+
+	public void setGalleria(List<GalleriaBean> galleria) {
+		this.galleria = galleria;
+	}
+
 	@Override
 	public boolean equals(Object other) {
 		return this.getId_prodotto() ==  ((ProdottoBean) other).getId_prodotto();

@@ -11,13 +11,15 @@ public class Carrello {
 		this.items=items;
 	}
 	
-	public List<CarrelloItem> getCarrello(){
+	public List<CarrelloItem> getItemsCarrello(){
 		return items;
 	}
 	
 	public void setCarrello(List<CarrelloItem> items) {
 			this.items=items;
 	}
+	
+	
 	
 	public double getTotale() {
 		double totale=0;
