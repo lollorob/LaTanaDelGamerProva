@@ -23,7 +23,9 @@ public class AccountUserControl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
+
 		AccountUserModelDS model = new AccountUserModelDS();
+
 		
 		String sort = request.getParameter("sort");
 		
