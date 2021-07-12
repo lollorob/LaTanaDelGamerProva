@@ -9,11 +9,18 @@ import java.util.LinkedList;
 
 import javax.sql.DataSource;
 
-import it.unisa.control.ConnectionPool;
 import it.unisa.utils.Utility;
 
 
 public class AccountUserModelDS implements EntityModel<AccountUserBean> {
+
+	private DataSource ds = null;
+	
+	public AccountUserModelDS(DataSource ds) {
+		this.ds = ds;
+	}
+	
+	
 	
 	@Override
 	public AccountUserBean doRetrieveByKey(Object chiave) throws SQLException {
@@ -26,7 +33,7 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 		String selectSQL = "SELECT * FROM accountuser WHERE username = ?";
 
 		try {
-			connection = ConnectionPool.getConnection();
+			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			preparedStatement.setString(1, code);
 
@@ -55,7 +62,9 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				ConnectionPool.releaseConnection(connection);
+				if (connection != null) {
+					connection.close();
+				}
 			}
 		}
 
@@ -76,7 +85,7 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 		Collection<AccountUserBean> accounts = new LinkedList<AccountUserBean>();
 		
 		try {
-			connection = ConnectionPool.getConnection();
+			connection = ds.getConnection();
 			preparedStatement = connection.prepareStatement(selectSQL);
 			
 			Utility.print("doRetriveAll: " + preparedStatement.toString());
@@ -124,7 +133,7 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 		String insertSQL = "INSERT INTO accountuser" + " (username,e_mail,passwd,nome,cognome,datadinascita,n_ordini,via,numero,cap,citta,provincia,is_admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
-			connection = ConnectionPool.getConnection();
+			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(insertSQL);
 
@@ -152,12 +161,14 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				ConnectionPool.releaseConnection(connection);
+				if (connection != null) {
+					connection.close();
 				}
 			}
 		}
-	
-	
+		
+
+	}
 
 	@Override
 	public void doUpdate(AccountUserBean item) throws SQLException {
@@ -167,7 +178,7 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 		String updateSQL = "UPDATE accountuser SET " + " e_mail = ?,nome = ?,cognome = ?,datadinascita = ?,via = ?,numero = ?,cap = ?,citta = ?,provincia = ? WHERE username = ?";
 
 		try {
-			connection = ConnectionPool.getConnection();
+			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(updateSQL);
 
@@ -194,7 +205,9 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				ConnectionPool.releaseConnection(connection);
+				if (connection != null) {
+					connection.close();
+				}
 			}
 		}
 		
@@ -209,7 +222,7 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 		String deleteSQL = "DELETE FROM accountuser WHERE username = ?";
 
 		try {
-			connection = ConnectionPool.getConnection();
+			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(deleteSQL);
 			preparedStatement.setString(1, item.getUsername());
@@ -224,7 +237,9 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 				if (preparedStatement != null)
 					preparedStatement.close();
 			} finally {
-				ConnectionPool.releaseConnection(connection);
+				if (connection != null) {
+					connection.close();
+				}
 			}
 		}
 	}

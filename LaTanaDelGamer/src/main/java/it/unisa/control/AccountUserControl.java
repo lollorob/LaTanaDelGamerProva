@@ -24,7 +24,7 @@ public class AccountUserControl extends HttpServlet {
 		
 		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
 
-		AccountUserModelDS model = new AccountUserModelDS();
+		AccountUserModelDS model = new AccountUserModelDS(ds);
 
 		
 		String sort = request.getParameter("sort");
