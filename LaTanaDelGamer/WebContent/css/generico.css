@@ -243,3 +243,18 @@ template {
 [hidden] {
   display: none;
 }
+
+table {
+	width: 100px;
+}
+
+table, th, td {
+	text-align: center;
+	border: 2px solid black;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 5px;
+}
+
