@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.*,it.unisa.model.*"%>
+    
+    
+    <jsp:include page="/WEB-INF/Views/PagineComuni/Head.jsp">
+    	<jsp:param name="title" value="LolloTheKing"/>
+    </jsp:include>
  <%
  	Collection<?> accounts = (Collection<?>)request.getAttribute("accounts");
  
@@ -15,11 +20,20 @@
 
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
+<style>
+		html,body{
+			font-family: "Andika";
+			font-weight: normal;
+			font-style: normal;	
+		}
+	
+	</style>
 	<meta name="author" content="Lorenzo Lucio Ruocco, Roberto Balestrieri"> 
 	<meta charset="UTF-8">
-	<link href="AccountUserStyle.css" rel="stylesheet" type="text/css">
-<title>	Lista Degli Account</title>
+
+
 </head>
 <body>
 
@@ -110,8 +124,6 @@
 				<label for="cognome">Cognome:</label><br>
 				<input id="cognome" name="cognome" type="text" required value="<%=account1.getCognome()%>"><br>
 
-				<label for="passwd">Password:</label><br>
-				<input id="passwd" name="passwd" type="password" min="5" placeholder="inserisci password" required value="<%=account1.getPasswd()%>"><br>
 
 				<label for="datadinascita">Data di nascita:</label><br>
 				<input id="datadinascita" name="datadinascita" type ="date" required value="<%=account1.getData()%>"><br>
