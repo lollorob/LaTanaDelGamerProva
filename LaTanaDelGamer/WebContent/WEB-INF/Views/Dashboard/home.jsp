@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
- <jsp:include page="/WEB-INF/Views/PagineComuni/Head.jsp"> 
+ <jsp:include page="/WEB-INF/Views/PagineComuni/head.jsp"> 
  	<jsp:param name="title" value ="Home"/>
  	<jsp:param name="style" value = "Home.css"/>
  	<jsp:param name="script" value = "Home.js"/>

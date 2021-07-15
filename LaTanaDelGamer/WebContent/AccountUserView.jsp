@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" import="java.util.*,it.unisa.model.*"%>
     
     
-    <jsp:include page="/WEB-INF/Views/PagineComuni/Head.jsp">
+    <jsp:include page="/WEB-INF/Views/PagineComuni/head.jsp">
     	<jsp:param name="title" value="LolloTheKing"/>
     </jsp:include>
  <%

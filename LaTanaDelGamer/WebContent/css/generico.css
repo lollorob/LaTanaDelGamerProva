@@ -30,6 +30,11 @@
 	src: url("../fonts/AndikaNewBasic-R.ttf");
 }
 
+:root{
+	font-family: 'Andika';
+	font-weight: normal;
+	font-style: normal;	
+}
 
 
 html {

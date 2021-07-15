@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
+<%request.setAttribute("context", request.getContextPath());%>
 
 <!DOCTYPE html>
 <html>
@@ -16,22 +17,18 @@
 <meta name="theme-color" content="black">
 
 
-<link href="css/generico.css" rel="stylesheet">
+<link href="<%= request.getAttribute("context")%>/css/generico.css" rel="stylesheet">
 <%if ((request.getParameter("style"))!=null) { %>
-	<link rel="stylesheet" href="css/<%=request.getParameter("style")%>">
+	<link rel="stylesheet" href="<%= request.getAttribute("context")%>/css/<%=request.getParameter("style")%>">
 <% } %>
 
 
-<script src="js/generico.js" defer></script>  <!-- defer = script viene eseguito al termine dell'analisi della pagina per non interrompere il render. -->
+<script src="<%= request.getAttribute("context")%>/js/generico.js" defer></script>  <!-- defer = script viene eseguito al termine dell'analisi della pagina per non interrompere il render. -->
 <%if ((request.getParameter("script"))!=null) { %>
-	<script src="js/<%=request.getParameter("script") %>" defer></script>
+	<script src="<%= request.getAttribute("context")%>/js/<%=request.getParameter("script") %>" defer></script>
 	<%} %>
-
 
 </head>
 <body>
-
-
-
 </body>
 </html>
