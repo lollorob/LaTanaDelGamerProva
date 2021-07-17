@@ -11,37 +11,67 @@
 </head>
 
 <style>
-	.login{
+	.tabella{
 		
-		}
+		background: linear-gradient(green,white);
+		width: 100vw;
+		height: 100vh;
+		max-width: 100%;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		align-items: center;
+	}	
+	
+	.credenziali{
+		display: flex;
+		flex-basis: 50%;
+		padding: 1rem;
+		background-color: white;
+		border: 2px;
+	    border-radius: 10px;
+		flex-flow: column wrap;
+	}
 
+	.campo{
+		flex-basis:100%;
+		display: flex;
+		align-items: center;
+}
+	
+	.credenziali > *{
+		margin : 10px;
+	}
 
-
+	.bottone{
+		padding: 8px;
+		border: 2px;
+		border-radius: 5px;
+		cursor: pointer;
+		background : green;
+		
+	
+	}
 
 </style>
 <body>
 
-<form class="app" action="/loginAdmin" method="post">
-	<fieldset class="grid-y cell w50">
+<form class="tabella" action="/loginAdmin" method="post">
+	<fieldset class="credenziali">
 	
 		<h2>Login Admin</h2> 
 		
 		<span>Email</span> 
-		<label for="email">
+		<label for="email" class = "campo">
 				<input type="email" name="email" id="email" placeholder="mrisi@unisa.it">		
 		</label>
 		
 		<span>Password</span>
-		<label for="password">
-			<input type="password" name="password" id="password" placeholder="0000">
+		<label for="password" class="campo">
+			<input type="password" name="password" id="password" placeholder="****">
 		</label>
-		<button type="submit">Accedi</button>
+		<button type="submit" class="bottone" onmouseover="bottone2">Accedi</button>
 	</fieldset>
-
-
-
-
-
 </form>
 
 </body>
