@@ -49,14 +49,14 @@
 		border-radius: 5px;
 		cursor: pointer;
 		background : green;
-		
-	
 	}
 
+      .bottone:hover{
+        border-color: #F90;
+        background-color: #66FF00;
 </style>
 <body>
-
-<form class="tabella" action="/loginAdmin" method="post">
+<form class="tabella" action="<%= request.getAttribute("context")%>/Dashboard/home" method="get">
 	<fieldset class="credenziali">
 	
 		<h2>Login Admin</h2> 
@@ -70,7 +70,7 @@
 		<label for="password" class="campo">
 			<input type="password" name="password" id="password" placeholder="****">
 		</label>
-		<button type="submit" class="bottone" onmouseover="bottone2">Accedi</button>
+		<button type="submit" class="bottone">Accedi</button>
 	</fieldset>
 </form>
 

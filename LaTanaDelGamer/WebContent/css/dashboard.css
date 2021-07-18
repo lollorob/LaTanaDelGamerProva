@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.app {
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+.superiore,.laterale {
+	vertical-align: top;
+	background-color: var(--primary);
+	padding: 15px;
+}
+
+.menu > a {
+	text-decoration: none;  /* per evitare sottolineatura */
+	color: var(--white);
+	padding: 1rem;
+}
+.corpo {
+	flex-grow: 1;	
+}
+
+.info {
+	text-align: right;
+	font-style: italic;
+	font-weight: normal;
+}
+
+.contenuto {
+	background-color: var(--grey);
+	flex: 1;
+}
