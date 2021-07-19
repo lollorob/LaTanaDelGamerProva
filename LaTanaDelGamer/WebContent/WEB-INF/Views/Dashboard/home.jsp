@@ -13,38 +13,20 @@
 </head>
 <body>
 
-<main class="app">
+<nav class="menu">
+ <a href="#"><img id="logo" alt="logo" src="/LaTanaDelGamer/immagini/logo.png" width="240"></a>
+ <%@include file="/icons/icons8-menu.svg" %>
+ <ul>
+ <a href="#"><li class="active">Home</li></a>
+ <a href="#"><li>Clienti</li></a>
+ <a href="#"><li>Ordini</li></a>
+ <a href="#"><li>Categorie</li></a>
+ <a href="#"><li>Prodotti</li></a>
+ <a href="#"><li>Disconnetti</li></a>
+ </ul>
+ </nav>
+ 
+ <topbar>
 
-      <aside class="laterale"> 
-      <nav class="menu">
-      <img alt="No Image" src="/LaTanaDelGamer/immagini/logo.png" width=80 height=30>
-        <a href="#">Clienti</a>
-        <a href="#">Prodotti</a> 
-        <a href="#">Categorie</a>
-        <a href="#">Ordini</a>
-        <a href="#">Disconnetti</a>
-      </nav>
-      </aside>
-    
-    
-    <section class="contenuto">
-    	<header class= "superiore">
-    	Menu superiore
-    	</header>
-    	<div class="corpo"></div>
-    	<footer class= "info">
-    	<p>Copyright 2020. La Tana Del Gamer tutti i diritti riservati </p>
-    	</footer>
-    	
-    </section>
-    
-
-
-
-
-
-
-
-</main>
 </body>
 </html>
