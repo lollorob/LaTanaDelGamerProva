@@ -16,7 +16,7 @@
 <main class="app">
 
       <aside class="laterale"> 
-      <nav class="menu grid-y align-center">
+      <nav class="menu">
       <img alt="No Image" src="/LaTanaDelGamer/immagini/logo.png" width=80 height=30>
         <a href="#">Clienti</a>
         <a href="#">Prodotti</a> 
@@ -27,7 +27,7 @@
       </aside>
     
     
-    <section class="contenuto grid-y">
+    <section class="contenuto">
     	<header class= "superiore">
     	Menu superiore
     	</header>

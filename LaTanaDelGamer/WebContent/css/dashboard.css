@@ -6,8 +6,9 @@
 }
 
 .superiore,.laterale {
+	flex-flow: column wrap;
 	vertical-align: top;
-	background-color: var(--primary);
+	background-color: grey;
 	padding: 15px;
 }
 
@@ -29,4 +30,5 @@
 .contenuto {
 	background-color: var(--grey);
 	flex: 1;
+	flex-flow: column wrap;
 }
