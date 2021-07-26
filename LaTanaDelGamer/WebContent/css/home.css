@@ -107,3 +107,22 @@ footer{
 	bottom:50%;
 	transition:0.5s;
 }
+
+	.tabella{
+		display:table-cell;
+		margin:3px 0px 3px 0px;
+		cellspacing:"1";
+		 cellpadding:"1";
+        width:50%;
+        max-width:300px;
+        border-radius:10px;
+        border:1px red solid;
+        overflow:hidden;
+     
+    }
+     
+	.casella{ 
+		background-color:linear-gradient(120deg,#2980b9,#8e44ad);
+        padding:5px;
+       
+    }
