@@ -110,9 +110,7 @@ footer{
 
 	.tabella{
 		display:table-cell;
-		margin:3px 0px 3px 0px;
-		cellspacing:"1";
-		 cellpadding:"1";
+		margin:3px 0px 3px 0px ;
         width:50%;
         max-width:300px;
         border-radius:10px;
