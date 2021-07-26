@@ -40,28 +40,34 @@
 		</header>
 		
 		<div class="info">
-		<div class="tabella">
-		<div class="casella">
-		<p>«Lorem ipsum dolor sit amet, consectetur adipisci elit, sed do eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrum exercitationem ullamco laboriosam, nisi ut aliquid ex ea commodi consequatur.</p>
-		</div>
-		</div>
-		
-		<div class="tabella">
-		<div class="casella">
-		<p>RoBERTO TEN A BOTT A CABBIET</p>
-		</div>
-		</div>
-		
-		<div class="tabella">
-		<div class="casella">
-		<p>RoBERTO TEN A BOTT A CABBIET</p>
-        	
-      	</div>
-      	</div>
-       
-       <footer>
-       	<p>Copyright 2020 lollorob.</p>
-       </footer>
+       		<div class="clienti">
+       			<h4>clienti registrati</h4>
+       			<h2>24</h2>
+       		</div>
+       		
+       		<div class="clienti">
+       			<h4>utenti registrati</h4>
+       			<h2>24</h2>
+       		</div>
+       		
+       		<div class="clienti">
+       			<h4> registrati</h4>
+       			<h2>24</h2>
+       		</div>
+       		
+       		<div class="clienti">
+       			<h4>clienti registrati</h4>
+       			<h2>24</h2>
+       		</div>
+       		
+       		
+       	</div>	
+       		<!--  <footer>
+       			<p>Copyright 2020 lollorob.</p>
+       		</footer>-->
+    	
+    	
+    	
     </div>
 
 

@@ -1,15 +1,5 @@
 @charset "utf-8";
 
-footer{
- 		background-color: #e7e7e7;
- 		text-align: center;
- 		padding: 15px;
- 		margin: 0px 10px 10px 10px;
- 		font-size:70%;
- 		right:20px;
- 	}
- 	
-
 
  	
  	*{
@@ -89,10 +79,12 @@ footer{
 	}
 	
 	#contenuto .info{
-		margin: 20px;
- 		color: #717171;
-  		line-height: 25px;
-  		
+	margin: 30px;
+ 	color: #717171;
+  	line-height: 25px;
+  	float:left;
+  	clear:both;
+  	
   		
 	}
 	
@@ -106,21 +98,27 @@ footer{
 	position: absolute;
 	bottom:50%;
 	transition:0.5s;
-}
+	}
 
-	.tabella{
-		display:table-cell;
-		margin:3px 0px 3px 0px ;
-        width:50%;
-        max-width:300px;
-        border-radius:10px;
-        border:1px red solid;
-        overflow:hidden;
-     
+
+    
+    .clienti{
+    	border: 5px solid black;
+    	width:45vw;
+    	min-width:300px;
+    	height:45vh;
+    	min-height:400px;
+    	float:left;
+    	flex-grow:1;
+    	margin:10px;
     }
-     
-	.casella{ 
-		background-color:linear-gradient(120deg,#2980b9,#8e44ad);
-        padding:5px;
-       
-    }
+    
+footer{
+ 		background-color: #e7e7e7;
+ 		text-align: center;
+ 		padding: 15px;
+ 		margin: 0px 10px 10px 10px;
+ 		font-size:70%;
+ 		right:20px;
+ 		position:absolute;
+ 	}
