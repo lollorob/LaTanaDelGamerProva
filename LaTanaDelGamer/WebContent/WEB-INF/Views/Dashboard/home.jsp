@@ -15,8 +15,8 @@
 
 <body>
 
-<div class="pagina">
-	<aside class="sidebar">
+
+	<div id="sidebar" onmouseleave="closeMenu()">
 		<h3>Pannello</h3>
 		<nav>
 			
@@ -30,13 +30,13 @@
 		 	</ul>
 	 	</nav>
 	
-	</aside>
+	</div>
 	
-	
-	<div class="contenuto">
+	<img src="/LaTanaDelGamer/icone/freccia.svg" alt="Freccia" class="freccia" onmouseover="openMenu()" id="menu">
+	<div id="contenuto" onClick="closeMenu()">
 		 
 		<header class="top">
-			<%@include file="/icone/iconaMenu.svg" %>Benvenuto! Quale operazione desidera effettuare?
+			Benvenuto! Quale operazione desidera effettuare?
 		</header>
 		
 		<div class="info">
@@ -49,7 +49,7 @@
        	<p>Copyright 2020 lollorob.</p>
        </footer>
     </div>
-</div>
+
 
 
 </body>

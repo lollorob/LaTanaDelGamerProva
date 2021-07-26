@@ -1,11 +1,16 @@
 /**
- 
+ * 
  */
-const bottone=document.getElementsByClassName("top")[0].firstElementChild;
-bottone.addEventListener('click', function(){
-	const sidebar=document.getElementsByClassName("sidebar")[0]
-	const contenuto=document.getElementsByClassName("contenuto")[0]
-	sidebar.classList.toogle("collapse")
-	contenuto.classList,toggle("full-width")
-})
 
+function openMenu(){
+	document.getElementById("sidebar").style.marginLeft ="0";
+	document.getElementById("contenuto").style.marginLeft ="200px";
+	document.getElementById("menu").style.marginLeft ="200px";
+
+}
+
+function closeMenu(){
+	document.getElementById("sidebar").style.marginLeft ="-200px";
+	document.getElementById("contenuto").style.marginLeft ="0";
+	document.getElementById("menu").style.marginLeft ="0px";
+}

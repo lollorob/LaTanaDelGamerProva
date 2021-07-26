@@ -10,6 +10,7 @@ footer{
  	}
  	
 
+
  	
  	*{
 	  margin: 0;
@@ -25,23 +26,22 @@ footer{
    		
 	}
 	
-	.pagina{
-	display:flex;
-	position:relative;
 	
-	}
 	
-	.pagina .sidebar{
+  #sidebar{
 		width: 200px;
 		height:100%;
 		left:0;
+		top:0;
+		position: fixed;
 		background:linear-gradient(120deg,#2980b9,#8e44ad);
 		padding: 30px 0px;
- 		position: fixed;
- 		
+ 		margin-left: -200px;
+ 		transition: 0.5s;
+ 		z-index:1; /* serve per sovrapporre la sidebar alla freccia del menu*/ 
 	}
 	
-	.pagina .sidebar h3{
+	#sidebar h3{
 		
   		color: #fff;
   		text-transform: uppercase;
@@ -49,43 +49,46 @@ footer{
  		margin-bottom: 30px;
 	}
 	
-	.pagina .sidebar ul li{
+	#sidebar ul li{
 		padding:15px;
 		border-bottom: 1px solid #bdb8d7;
 		border-top: 1px solid #bdb8d7;
 	}
 	
-	.pagina .sidebar ul li a{
+	#sidebar ul li a{
 		color: white;
 		display: block;
 	}
 	
-	.pagina .sidebar ul li:hover{
+	#sidebar ul li:hover{
  	 background-color: #594f8d;			
 	}
 	
-	.pagina .sidebar ul li:hover a{
+	#sidebar ul li:hover a{
  	 	color: #fff;	
 	}
 	
-	.pagina .contenuto{
-	
+	#contenuto{
+		transition:0.5s;
 		width: 100%;
-		margin-left: 200px;
+		padding-left:10px;
+		/*margin-left: 200px;*/
 		
 		
 		
 	}
 	
-	.pagina .contenuto .top{
+	#contenuto .top{
 		padding:20px;
-		background: #fff;
-		color: #717171;
+		background: linear-gradient(120deg,#2980b9,#8e44ad);
+		color:white;
   		border-bottom: 1px solid #e0e4e8;
+  		border: 2px;
+  		border-top-left-radius: 25px;
   		
 	}
 	
-	.pagina .contenuto .info{
+	#contenuto .info{
 		margin: 20px;
  		color: #717171;
   		line-height: 25px;
@@ -93,7 +96,14 @@ footer{
   		
 	}
 	
-	.pagina .contenuto .info div{
-		margin-bottom: 20px;
-		
+	#contenuto .info div{
+		margin-bottom: 20px;		
 	}
+	
+	.freccia{
+	width:30px;
+	height:30px;
+	position: absolute;
+	bottom:50%;
+	transition:0.5s;
+}
