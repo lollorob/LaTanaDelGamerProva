@@ -22,7 +22,7 @@
 			
 		 	<ul >
 		 		<li><a href="#">Home</a>
-		 		<li><a href="#">Clienti</a>
+		 		<li><a href="/laTanaDelGamer/dashboard/clienti">Clienti</a>
 		 		<li><a href="#">Ordini</a>
 		 		<li><a href="#">Categorie</a>
 		 		<li><a href="#">Prodotti</a>

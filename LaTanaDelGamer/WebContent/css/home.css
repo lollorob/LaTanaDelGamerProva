@@ -13,6 +13,7 @@
  	
  	body{
    		background-color: #f3f5f9;
+   		transition: 0.5s;
    		
 	}
 	
@@ -104,15 +105,32 @@
     
     .clienti{
     	border: 5px solid black;
-    	width:45vw;
-    	min-width:300px;
+    	width:40vw;
     	height:45vh;
     	min-height:400px;
     	float:left;
-    	flex-grow:1;
     	margin:10px;
+    	
     }
     
+    .clienti h4{
+    	height:80px;
+    	background: linear-gradient(120deg,#2980b9,#8e44ad);
+    	color:white; 
+    	text-align:center;
+    	line-height: 80px;
+    	
+    	
+    	
+    }
+    
+    
+    @media screen and (max-width: 710px) {
+  .clienti {
+    width: 100%;
+   
+  	}
+}
 footer{
  		background-color: #e7e7e7;
  		text-align: center;
@@ -121,4 +139,5 @@ footer{
  		font-size:70%;
  		right:20px;
  		position:absolute;
- 	}
+ 
+}
