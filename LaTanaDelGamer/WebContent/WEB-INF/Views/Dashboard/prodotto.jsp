@@ -5,7 +5,7 @@
 <head>
  <jsp:include page="/WEB-INF/Views/PagineComuni/head.jsp"> 
  	<jsp:param name="title" value ="Home"/>
- 	<jsp:param name="style" value = "prodotti.css"/>
+ 	<jsp:param name="style" value = "prodotto.css"/>
  	<jsp:param name="script" value = "dashboard.js"/>
  </jsp:include>
  
@@ -18,45 +18,101 @@
 	<%@include file="/WEB-INF/Views/PagineComuni/menu.jsp" %> 
 
 	<img src="/LaTanaDelGamer/icone/freccia.svg" alt="Freccia" class="freccia" onmouseover="openMenu()" id="menu">
+	
 	<div id="contenuto" onClick="closeMenu()">
 		 
 		<header class="top">
 			Benvenuto! Quale operazione desidera effettuare?
 		</header>
-		<form method="post" action="/LaTanaDelGamer/prodotti/crea">
-			<fieldset>
-		<legend><b>Crea Prodotto</b></legend>
-		<input type="hidden" name="action" value="crea">
 		
-		<label for="id_prodotto">Id:</label><br>
-		<input id="id_prodotto" name="id" type="number" min="1" placeholder="Inserisci id prodotto" required><br>
 		
-		<label for="nome">Nome:</label><br>
-		<input id="nome" name="nome" type="text" maxlength="70" placeholder="Inserisci nome" required><br>
-		
-		<label for="prezzo">Prezzo:</label><br>
-		<input id="prezzo" name="prezzo" type="number" min="0" placeholder="Inserisci prezzo" required><br>
-		
-		<label for="descrizione">Descrizione:</label><br>
-		<input id="descrizione" name="descrizione" type="text" maxlength="500" placeholder="Inserisci descrizione" required><br>
-		
-		<label for="casaproduttrice">Casa Produttrice:</label><br>
-		<input id="casaproduttrice" name="casaproduttrice" type="text" maxlength="50" placeholder="Inserisci casaproduttrice" required><br>
-		
-		<label for="quantita">Quantità:</label><br>
-		<input id="quantita" name="quantita" type="number" min="1" required><br>
+		<div class="tabella">
+			<form method="post" class="form" action="/LaTanaDelGamer/prodotti/crea" enctype="multipart/form-data">
 				
-		<label for="copertina">Copertina:</label><br>
-		<input id="copertina" name="copertina" type="file" required><br>
-		
-		<label for="nome_categoria">Categoria:</label><br>
-		<input id="nome_categoria" name="nome_categoria" type="text" placeholder="Inserisci Categoria" required><br>
-		
-		<button type="submit" class="bottone">Crea</button>
-	
-		</form>
-       		
-       	</div>	
+					<h4><b>Crea Prodotto</b></h4>
+				
+					<div class="riga">
+						<div class="nome">
+							<label for="id_prodotto">Id</label>
+						</div>
+						<div class="area">	
+							<input id="id_prodotto" name="id_prodotto" type="number" min="1" placeholder="Id" required><br>
+						</div>
+					</div>	
+					
+					
+					<div class="riga">
+						<div class="nome">
+							<label for="nome">Nome</label>
+						</div>
+						<div class="area">
+							<input id="nome" name="nome" type="text" maxlength="70" placeholder="Nome" required><br>
+						</div>
+					</div>
+					
+					<div class="riga">
+						<div class="nome">	
+							<label for="prezzo">Prezzo</label>
+						</div>
+						<div class="area">
+							<input id="prezzo" name="prezzo" type="number" step="0.01" min="0.01" placeholder="Prezzo" required><br>
+						</div>
+					</div>
+					
+					<div class="riga">	
+						<div class="nome">
+							<label for="descrizione">Descrizione</label>
+						</div>
+						<div class="area">
+							<input id="descrizione" name="descrizione" type="text" maxlength="500" placeholder="Descrizione" required><br>
+						</div>
+					</div>
+					
+					<div class="riga">	
+						<div class="nome">
+							<label for="casaproduttrice">Casa produttrice</label>
+						</div>
+						<div class="area">
+							<input id="casaproduttrice" name="casaproduttrice" type="text" maxlength="50" placeholder="Casa Produttrice" required><br>
+						</div>
+					</div>
+						
+					<div class="riga">	
+						<div class="nome">
+							<label for="quantita">Quantità</label>
+						</div>
+						<div class="area">
+							<input id="quantita" name="quantita" type="number" min="1" placeholder="Quantità" required><br>
+						</div>
+					</div>
+					
+					<div class="riga">	
+						<div class="nome">
+							<label for="copertina">Copertina</label>
+						</div>
+						<div class="area">
+							<input id="copertina" name="copertina" type="file" placeholder="Copertina" required enctype="multipart/form-data"><br>
+						</div>
+					</div>
+					
+					<div class="riga">
+						<div class="nome">	
+							<label for="nome_categoria">Categoria</label>
+						</div>
+								<select id="nome_categoria" name="nome_categoria">
+									<option value="Sparatutto">Sparatutto</option>
+									<option value="Sportivi">Sportivi</option>
+									<option value="NonEsiste">ProvaErrore</option>
+								</select>
+					</div>	
+					
+					
+						<button type="submit" class="bottone">Crea</button>
+						
+				
+			</form>
+	     </div>	
+     </div>	
 
 
 </body>
