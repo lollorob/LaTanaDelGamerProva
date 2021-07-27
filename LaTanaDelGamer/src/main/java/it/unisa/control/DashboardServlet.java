@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name= "DashboardServlet" , value="/dashboard/*")
+@WebServlet(name= "DashboardServlet" , value="/Dashboard/*")
 public class DashboardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -17,7 +17,9 @@ public class DashboardServlet extends HttpServlet {
 		case "/home":
 			request.getRequestDispatcher("/WEB-INF/Views/Dashboard/home.jsp").forward(request, response);
 			break;
-		
+		case "/prodotti":
+			request.getRequestDispatcher("/WEB-INF/Views/Dashboard/prodotti.jsp").forward(request, response);
+			break;
 		default:
 			response.sendError(HttpServletResponse.SC_NOT_FOUND, "Risorsa non Trovata");
 			

@@ -25,7 +25,7 @@
 		 		<li><a href="/laTanaDelGamer/dashboard/clienti">Clienti</a>
 		 		<li><a href="#">Ordini</a>
 		 		<li><a href="#">Categorie</a>
-		 		<li><a href="#">Prodotti</a>
+		 		<li><a href="<%= request.getAttribute("context")%>/Dashboard/prodotti">Prodotti</a>
 		 		<li><a href="#">Disconnetti</a>	
 		 	</ul>
 	 	</nav>
@@ -62,9 +62,7 @@
        		
        		
        	</div>	
-       		<!--  <footer>
-       			<p>Copyright 2020 lollorob.</p>
-       		</footer>-->
+
     	
     	
     	
