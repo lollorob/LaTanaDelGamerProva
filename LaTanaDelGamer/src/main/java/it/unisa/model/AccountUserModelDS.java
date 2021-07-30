@@ -1,11 +1,13 @@
 package it.unisa.model;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.Optional;
 
 import javax.sql.DataSource;
 
@@ -43,7 +45,7 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 			while (rs.next()) {
 				account.setUsername(rs.getString("username"));
 				account.seteMail(rs.getString("e_mail"));
-				account.setPasswd(rs.getString("passwd") );
+				account.setPasswd(rs.getString("passwd"));
 				account.setNome(rs.getString("nome"));
 				account.setCognome(rs.getString("cognome"));
 				account.setData(rs.getString("datadinascita"));
@@ -57,6 +59,8 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 			}
 
 			Utility.print(account.toString());
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -112,6 +116,8 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 				accounts.add(account);
 			}
 			
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
 		} finally {
 			try {
 			if(preparedStatement != null)
@@ -243,6 +249,54 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 			}
 		}
 	}
+	
 
+	public AccountUserBean findAccount(String e_mail, String passwd, boolean is_admin) throws SQLException, NoSuchAlgorithmException {
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+
+		String find = "SELECT * FROM AccountUser WHERE e_mail=? AND passwd=? AND is_admin=true";
+		AccountUserBean account = null;
+		try {
+			connection = ds.getConnection();
+			connection.setAutoCommit(false);
+			preparedStatement = connection.prepareStatement(find);
+
+			preparedStatement.setString(1, e_mail);
+			preparedStatement.setString(2, passwd);
+			preparedStatement.setBoolean(3,is_admin);
+
+			ResultSet rs = preparedStatement.executeQuery();
+		
+			
+			if(rs.next()) {
+					account.setUsername(rs.getString("username"));
+					account.seteMail(rs.getString("e_mail"));
+					account.setNome(rs.getString("nome"));
+					account.setCognome(rs.getString("cognome"));
+					account.setData(rs.getString("datadinascita"));
+					account.setn_Ordini(rs.getInt("n_ordini"));
+					account.setVia(rs.getString("via"));
+					account.setNumero(rs.getInt("numero"));
+					account.setCap(rs.getLong("cap"));
+					account.setCitta(rs.getString("citta"));
+					account.setProvincia(rs.getString("provincia"));
+					account.setAdmin(rs.getBoolean("is_admin"));
+				}
+
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+		
+		return account;
+	}
+	
 	}
 

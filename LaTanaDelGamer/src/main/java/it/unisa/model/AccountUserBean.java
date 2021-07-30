@@ -1,6 +1,9 @@
 package it.unisa.model;
 
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public class AccountUserBean implements Serializable {
@@ -57,8 +60,14 @@ public class AccountUserBean implements Serializable {
 	public String getPasswd() {
 		return passwd;
 	}
-	public void setPasswd(String passwd) {
-		this.passwd = passwd;
+	public void setPasswd(String passwd) throws NoSuchAlgorithmException {
+		MessageDigest digest = MessageDigest.getInstance("SHA-512");
+		byte [] hashedpasswd = digest.digest(passwd.getBytes(StandardCharsets.UTF_8));
+		StringBuilder builder = new StringBuilder();
+		for(byte bit : hashedpasswd) {
+			builder.append(String.format("%02x", bit));
+		}
+		this.passwd = builder.toString();
 	}
 	public String getNome() {
 		return nome;
@@ -146,5 +155,8 @@ public class AccountUserBean implements Serializable {
 		return username + " (" +eMail+ ", " + passwd + ", " + nome + ", " + cognome + ", " + data + ", " +n_Ordini + ", " + via + ", " + numero + ", " + cap + ", " + citta + ", " + provincia+ ") ";
 		
 	}
+
+
+	
 
 }

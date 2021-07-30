@@ -6,11 +6,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
+
+import it.unisa.model.AccountUserBean;
+import it.unisa.model.AccountUserModelDS;
+import it.unisa.model.AccountUserSessione;
 
 @WebServlet(name = "AccountUserControl", value = "/accounts/*")
 public class AccountUserControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private AccountUserModelDS tmp;
 	
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		DataSource ds = null;
+		tmp = new AccountUserModelDS(ds);
+	}
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
@@ -61,8 +73,17 @@ public class AccountUserControl extends HttpServlet {
 			
 		case "/aggiorna":
 			break;
-			
-		case "/loginAdmin":  //login admin (ricerca nel db)
+			//login admin (ricerca nel db)
+		case "/loginAdmin":
+			request.setAttribute(back, view());
+			validate(AccountUserValidator.validateSignin(request));
+			AccountUserBean tmpAccount = new AccountUserBean();
+			tmpAccount.seteMail(request.getParameter("e_mail"));
+			tmpAccount.setPasswd(request.getParameter("passwd"));
+			AccountUserBean optAccount = tmp.findAccount(tmpAccount.geteMail(),tmpAccount.getPasswd(), true);
+			if(tmpAccount != null) {
+				AccountUserSessione accountsessione = new AccountUserSessione(optAccount.get());
+			}
 			break;
 		
 		case "/loginCliente":  //login cliente (ricerca nel db)
