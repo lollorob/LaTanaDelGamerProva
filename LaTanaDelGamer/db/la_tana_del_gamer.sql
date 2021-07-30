@@ -9,7 +9,7 @@ GRANT ALL ON la_tana_del_gamer.* TO 'lollorob'@'localhost';
 DROP TABLE IF EXISTS AccountUser;
 create table AccountUser(
 	username varchar(20) PRIMARY KEY NOT NULL,
-    e_mail varchar(50) NOT NULL,
+    e_mail varchar(50) NOT NULL UNIQUE,
     passwd varchar(100) NOT NULL,
     nome varchar(50) NOT NULL,
     cognome varchar(50) NOT NULL,

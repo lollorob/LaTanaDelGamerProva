@@ -1,33 +1,34 @@
 package it.unisa.model;
 
 public class AccountUserSessione {
-	
-	private final String nome,cognome;
-	private final String username;
-	private final boolean is_admin;
-	
-	
-	public AccountUserSessione(AccountUserBean account) {
-		this.nome = account.getNome();
-		this.cognome = account.getCognome();
-		this.username = account.getUsername();
-		this.is_admin = account.isAdmin();
+    private boolean is_Admin;
+    private String username;
+    private String password;
+    
+    public AccountUserSessione () {
+    	is_Admin = false;
+    	username = null;
+    	password = null;
+    }
+	public boolean isIs_Admin() {
+		return is_Admin;
 	}
-	
-	public String getNome() {
-		return nome;
+	public void setIs_Admin(boolean is_Admin) {
+		this.is_Admin = is_Admin;
 	}
-	
-	public String getCognome() {
-		return cognome;
-	}
-	
 	public String getUsername() {
 		return username;
 	}
-	
-	public boolean isAdmin() {
-		return is_admin;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	
 }

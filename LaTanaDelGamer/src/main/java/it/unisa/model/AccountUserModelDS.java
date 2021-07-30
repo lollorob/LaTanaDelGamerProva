@@ -2,6 +2,7 @@ package it.unisa.model;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -251,52 +252,29 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 	}
 	
 
-	public AccountUserBean findAccount(String e_mail, String passwd, boolean is_admin) throws SQLException, NoSuchAlgorithmException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
+    public AccountUserSessione checkLogin(String username, String password) throws SQLException,
+    	ClassNotFoundException {
+    			Connection connection = null;
+    	
+    			String sql = "SELECT * FROM users WHERE username = ? and password = ?";
+    			connection = ds.getConnection();
+    			PreparedStatement statement = connection.prepareStatement(sql);
+    			statement.setString(1, username);
+    			statement.setString(2, password);
 
-		String find = "SELECT * FROM AccountUser WHERE e_mail=? AND passwd=? AND is_admin=true";
-		AccountUserBean account = null;
-		try {
-			connection = ds.getConnection();
-			connection.setAutoCommit(false);
-			preparedStatement = connection.prepareStatement(find);
+    			ResultSet result = statement.executeQuery();
 
-			preparedStatement.setString(1, e_mail);
-			preparedStatement.setString(2, passwd);
-			preparedStatement.setBoolean(3,is_admin);
+    			AccountUserSessione user = null;
 
-			ResultSet rs = preparedStatement.executeQuery();
-		
-			
-			if(rs.next()) {
-					account.setUsername(rs.getString("username"));
-					account.seteMail(rs.getString("e_mail"));
-					account.setNome(rs.getString("nome"));
-					account.setCognome(rs.getString("cognome"));
-					account.setData(rs.getString("datadinascita"));
-					account.setn_Ordini(rs.getInt("n_ordini"));
-					account.setVia(rs.getString("via"));
-					account.setNumero(rs.getInt("numero"));
-					account.setCap(rs.getLong("cap"));
-					account.setCitta(rs.getString("citta"));
-					account.setProvincia(rs.getString("provincia"));
-					account.setAdmin(rs.getBoolean("is_admin"));
-				}
+    			if (result.next()) {
+    				user = new AccountUserSessione();
+    				user.setUsername(result.getString("username"));
+    				}
 
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null) {
-					connection.close();
-				}
-			}
-		}
-		
-		return account;
-	}
+connection.close();
+
+return user;
+}
 	
 	}
 

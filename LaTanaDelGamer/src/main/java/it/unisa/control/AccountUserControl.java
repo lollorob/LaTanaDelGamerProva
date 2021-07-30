@@ -1,11 +1,16 @@
 package it.unisa.control;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import it.unisa.model.AccountUserBean;
@@ -73,19 +78,73 @@ public class AccountUserControl extends HttpServlet {
 			
 		case "/aggiorna":
 			break;
-			//login admin (ricerca nel db)
-		case "/loginAdmin":
-			request.setAttribute(back, view());
-			validate(AccountUserValidator.validateSignin(request));
-			AccountUserBean tmpAccount = new AccountUserBean();
-			tmpAccount.seteMail(request.getParameter("e_mail"));
-			tmpAccount.setPasswd(request.getParameter("passwd"));
-			AccountUserBean optAccount = tmp.findAccount(tmpAccount.geteMail(),tmpAccount.getPasswd(), true);
-			if(tmpAccount != null) {
-				AccountUserSessione accountsessione = new AccountUserSessione(optAccount.get());
-			}
+			
+		case "/loginAdmin":  //login admin (ricerca nel db)
+		{
+		    String username = request.getParameter("username");
+		    String passwd = request.getParameter("password");
+		 
+		    AccountUserSessione loginBean = new AccountUserSessione();
+		 
+		    loginBean.setUsername(username);
+		    loginBean.setPassword(passwd);
+		 
+		   AccountUserModelDS loginDao = new AccountUserModelDS();
+		 
+		    try
+		    {
+		        String userValidate = loginDao.authenticateUser(loginBean);
+		 
+		        if(userValidate.equals("Admin_Role"))
+		        {
+		            System.out.println("Admin's Home");
+		 
+		            HttpSession session = request.getSession(); //Creating a session
+		            session.setAttribute("Admin", userName); //setting session attribute
+		            request.setAttribute("userName", userName);
+		 
+		            request.getRequestDispatcher("/JSP/Admin.jsp").forward(request, response);
+		        }
+		        else if(userValidate.equals("Editor_Role"))
+		        {
+		            System.out.println("Editor's Home");
+		 
+		            HttpSession session = request.getSession();
+		            session.setAttribute("Editor", userName);
+		            request.setAttribute("userName", userName);
+		 
+		            request.getRequestDispatcher("/JSP/Editor.jsp").forward(request, response);
+		        }
+		        else if(userValidate.equals("User_Role"))
+		        {
+		            System.out.println("User's Home");
+		 
+		            HttpSession session = request.getSession();
+		            session.setMaxInactiveInterval(10*60);
+		            session.setAttribute("User", userName);
+		            request.setAttribute("userName", userName);
+		 
+		            request.getRequestDispatcher("/JSP/User.jsp").forward(request, response);
+		        }
+		        else
+		        {
+		            System.out.println("Error message = "+userValidate);
+		            request.setAttribute("errMessage", userValidate);
+		 
+		            request.getRequestDispatcher("/JSP/Login.jsp").forward(request, response);
+		        }
+		    }
+		    catch (IOException e1)
+		    {
+		        e1.printStackTrace();
+		    }
+		    catch (Exception e2)
+		    {
+		        e2.printStackTrace();
+		    }
+		}
 			break;
-		
+	
 		case "/loginCliente":  //login cliente (ricerca nel db)
 			break;
 			
