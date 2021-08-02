@@ -9,19 +9,14 @@
  	<jsp:param name="script" value = "dashboard.js"/>
  </jsp:include>
  
- 
+  <% if(session.getAttribute("adminRoles") == null){	
+	  response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Operazione non consentita, loginAdmin necessario" );
+	}%> 
 
 </head>
 
 <body>
-<%String failedAdmin = (String) request.getAttribute("failedAdmin");
-if(failedAdmin.equals("false")) {%>
-			<div>
-	           <p>Accesso Negato</p>
-            <% request.getSession().setAttribute("failedAdmin",false);%>
-             <button type="button" class="okAlert">OK</button>
-        </div>
- <%} %>
+
 	<div id="sidebar" onmouseleave="closeMenu()">
 		<h3>Pannello</h3>
 		<nav>
@@ -32,7 +27,7 @@ if(failedAdmin.equals("false")) {%>
 		 		<li><a href="#">Ordini</a>
 		 		<li><a href="#">Categorie</a>
 		 		<li><a href="<%= request.getAttribute("context")%>/Dashboard/prodotti">Prodotti</a>
-		 		<li><a href="#">Disconnetti</a>	
+		 		<li><a href="<%=request.getAttribute("context")%>/accounts/logout">Disconnetti</a>	
 		 	</ul>
 	 	</nav>
 	

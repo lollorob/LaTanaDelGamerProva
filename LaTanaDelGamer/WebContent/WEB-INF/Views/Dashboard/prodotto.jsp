@@ -9,6 +9,10 @@
  	<jsp:param name="script" value = "dashboard.js"/>
  </jsp:include>
  
+  <% if(session.getAttribute("adminRoles") == null){	
+	  response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Operazione non consentita, loginAdmin necessario" );
+	 
+	}%> 
  
 
 </head>

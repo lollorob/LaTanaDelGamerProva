@@ -31,6 +31,7 @@ public class AccountUserControl extends HttpServlet {
 	}
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session=request.getSession();
 		String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
 		switch(path) {
 		
@@ -61,6 +62,15 @@ public class AccountUserControl extends HttpServlet {
 		case "/profilo":  //mostra profilo utente
 			request.getRequestDispatcher("/WEB-INF/Views/Dashboard/profilo.jsp").forward(request, response);
 			break;
+			
+		
+		case "/logout":
+			System.out.println("logoutlogoutlogout");
+			session.invalidate();
+            response.sendRedirect(request.getContextPath()+"/accounts/loginAdmin");
+            
+			break;	
+			
 		default:
 			response.sendError(HttpServletResponse.SC_NOT_FOUND, "Risorsa non Trovata");
 			
@@ -83,15 +93,18 @@ public class AccountUserControl extends HttpServlet {
 			break;
 			
 		case "/loginAdmin":  //login admin (ricerca nel db)
-		{
+		
 		    String username = (String) session.getAttribute("username");
 		    String passwd = (String) session.getAttribute("passwd");
+		   
 			
             if (username==null && passwd==null ) { //SE PRIMA VOLTA
                 username = request.getParameter("username");
                 passwd = request.getParameter("passwd");
                 session.setAttribute("username", username);
                 session.setAttribute("passwd", passwd);
+                
+                
             } 
             AccountUserModelDS accountmodel = new AccountUserModelDS(ds);
             try {
@@ -102,24 +115,27 @@ public class AccountUserControl extends HttpServlet {
 				e.printStackTrace();
 			}
             if (user !=null && user.isAdmin()) { //SE ADMIN
+                    session.setAttribute("adminRoles", true);
                     request.getRequestDispatcher("/WEB-INF/Views/Dashboard/home.jsp").forward(request, response);
+                    
             }else{ // ALTRIMENTI NON SEI AUTORIZZATO
-                session.removeAttribute("email");
+                session.removeAttribute("username");
                 session.removeAttribute("passwd");
                 session.setAttribute("failedAdmin",true);
+                session.removeAttribute("adminRoles");
                 response.sendRedirect(request.getContextPath() + "/accounts/loginAdmin");     //alert da aggiungere
             }
-            break;
-		}
-	
+            
+		
+			break;
+		
 		case "/loginCliente":  //login cliente (ricerca nel db)
 			break;
 			
 		case "/registrati":  //registrazione cliente
 			break;
 			
-		case "/logout":
-			break;
+		
 			
 		default:
 			response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED, "Operazione non Consentita");
