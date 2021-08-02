@@ -14,8 +14,14 @@
 </head>
 
 <body>
-
-
+<%String failedAdmin = (String) request.getAttribute("failedAdmin");
+if(failedAdmin.equals("false")) {%>
+			<div>
+	           <p>Accesso Negato</p>
+            <% request.getSession().setAttribute("failedAdmin",false);%>
+             <button type="button" class="okAlert">OK</button>
+        </div>
+ <%} %>
 	<div id="sidebar" onmouseleave="closeMenu()">
 		<h3>Pannello</h3>
 		<nav>

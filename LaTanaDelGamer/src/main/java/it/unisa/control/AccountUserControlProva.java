@@ -117,9 +117,6 @@ public class AccountUserControlProva extends HttpServlet {
 			Utility.print(e);
 			
 			request.setAttribute("error", e.getMessage());
-		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 		try {

@@ -15,7 +15,8 @@ import javax.sql.DataSource;
 
 import it.unisa.model.AccountUserBean;
 import it.unisa.model.AccountUserModelDS;
-import it.unisa.model.AccountUserSessione;
+
+
 
 @WebServlet(name = "AccountUserControl", value = "/accounts/*")
 public class AccountUserControl extends HttpServlet {
@@ -70,7 +71,9 @@ public class AccountUserControl extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
-		
+		HttpSession session=request.getSession();
+		AccountUserBean user = new AccountUserBean();
+		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
 		switch(path) {
 		
 		case "/crea":
@@ -81,69 +84,33 @@ public class AccountUserControl extends HttpServlet {
 			
 		case "/loginAdmin":  //login admin (ricerca nel db)
 		{
-		    String username = request.getParameter("username");
-		    String passwd = request.getParameter("password");
-		 
-		    AccountUserSessione loginBean = new AccountUserSessione();
-		 
-		    loginBean.setUsername(username);
-		    loginBean.setPassword(passwd);
-		 
-		   AccountUserModelDS loginDao = new AccountUserModelDS();
-		 
-		    try
-		    {
-		        String userValidate = loginDao.authenticateUser(loginBean);
-		 
-		        if(userValidate.equals("Admin_Role"))
-		        {
-		            System.out.println("Admin's Home");
-		 
-		            HttpSession session = request.getSession(); //Creating a session
-		            session.setAttribute("Admin", userName); //setting session attribute
-		            request.setAttribute("userName", userName);
-		 
-		            request.getRequestDispatcher("/JSP/Admin.jsp").forward(request, response);
-		        }
-		        else if(userValidate.equals("Editor_Role"))
-		        {
-		            System.out.println("Editor's Home");
-		 
-		            HttpSession session = request.getSession();
-		            session.setAttribute("Editor", userName);
-		            request.setAttribute("userName", userName);
-		 
-		            request.getRequestDispatcher("/JSP/Editor.jsp").forward(request, response);
-		        }
-		        else if(userValidate.equals("User_Role"))
-		        {
-		            System.out.println("User's Home");
-		 
-		            HttpSession session = request.getSession();
-		            session.setMaxInactiveInterval(10*60);
-		            session.setAttribute("User", userName);
-		            request.setAttribute("userName", userName);
-		 
-		            request.getRequestDispatcher("/JSP/User.jsp").forward(request, response);
-		        }
-		        else
-		        {
-		            System.out.println("Error message = "+userValidate);
-		            request.setAttribute("errMessage", userValidate);
-		 
-		            request.getRequestDispatcher("/JSP/Login.jsp").forward(request, response);
-		        }
-		    }
-		    catch (IOException e1)
-		    {
-		        e1.printStackTrace();
-		    }
-		    catch (Exception e2)
-		    {
-		        e2.printStackTrace();
-		    }
+		    String username = (String) session.getAttribute("username");
+		    String passwd = (String) session.getAttribute("passwd");
+			
+            if (username==null && passwd==null ) { //SE PRIMA VOLTA
+                username = request.getParameter("username");
+                passwd = request.getParameter("passwd");
+                session.setAttribute("username", username);
+                session.setAttribute("passwd", passwd);
+            } 
+            AccountUserModelDS accountmodel = new AccountUserModelDS(ds);
+            try {
+            	
+				user = accountmodel.doRetrieveAccountUserByEmailPassword(username, passwd);
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
+            if (user !=null && user.isAdmin()) { //SE ADMIN
+                    request.getRequestDispatcher("/WEB-INF/Views/Dashboard/home.jsp").forward(request, response);
+            }else{ // ALTRIMENTI NON SEI AUTORIZZATO
+                session.removeAttribute("email");
+                session.removeAttribute("passwd");
+                session.setAttribute("failedAdmin",true);
+                response.sendRedirect(request.getContextPath() + "/accounts/loginAdmin");     //alert da aggiungere
+            }
+            break;
 		}
-			break;
 	
 		case "/loginCliente":  //login cliente (ricerca nel db)
 			break;

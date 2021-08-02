@@ -23,7 +23,7 @@
 	<img src="/LaTanaDelGamer/immagini/adminLogo.png"  alt="noLogo" class="logo">
 	<h1>Login </h1>
 	
-	<form  action="<%= request.getAttribute("context")%>/Dashboard/loginAdmin" method="post">
+	<form  action="<%= request.getAttribute("context")%>/accounts/loginAdmin" method="post">
 		
 		<div class="textbox">
 			<input type="text" minlength="5" name="username" placeholder="Username" required>
@@ -31,7 +31,7 @@
  		</div>
  		
  		<div class="textbox">
-			<input type="password" name="password"  placeholder="Password "required>
+			<input type="password" name="passwd"  placeholder="Password "required>
 			
 			
  		</div>

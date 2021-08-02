@@ -1,6 +1,5 @@
 package it.unisa.model;
 
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -60,8 +59,6 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 			}
 
 			Utility.print(account.toString());
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
 		} finally {
 			try {
 				if (preparedStatement != null)
@@ -117,8 +114,6 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 				accounts.add(account);
 			}
 			
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
 		} finally {
 			try {
 			if(preparedStatement != null)
@@ -252,28 +247,43 @@ public class AccountUserModelDS implements EntityModel<AccountUserBean> {
 	}
 	
 
-    public AccountUserSessione checkLogin(String username, String password) throws SQLException,
-    	ClassNotFoundException {
+    public AccountUserBean doRetrieveAccountUserByEmailPassword(String username, String passwd) throws SQLException {
+    			AccountUserBean account = new AccountUserBean();
     			Connection connection = null;
-    	
-    			String sql = "SELECT * FROM users WHERE username = ? and password = ?";
+    			try{
+    			String sql = "SELECT * FROM accountuser WHERE accountuser.username = ? and accountuser.passwd=SHA1(?)";
     			connection = ds.getConnection();
     			PreparedStatement statement = connection.prepareStatement(sql);
     			statement.setString(1, username);
-    			statement.setString(2, password);
+    			statement.setString(2, passwd);
 
-    			ResultSet result = statement.executeQuery();
-
-    			AccountUserSessione user = null;
-
-    			if (result.next()) {
-    				user = new AccountUserSessione();
-    				user.setUsername(result.getString("username"));
-    				}
+    			ResultSet rs = statement.executeQuery();
+    			
+    			if (rs.next()) {
+    				account.setUsername(rs.getString("username"));
+    				account.seteMail(rs.getString("e_mail"));
+    				account.setPasswd(rs.getString("passwd"));
+    				account.setNome(rs.getString("nome"));
+    				account.setCognome(rs.getString("cognome"));
+    				account.setData(rs.getString("datadinascita"));
+    				account.setn_Ordini(rs.getInt("n_ordini"));
+    				account.setVia(rs.getString("via"));
+    				account.setNumero(rs.getInt("numero"));
+    				account.setCap(rs.getLong("cap"));
+    				account.setCitta(rs.getString("citta"));
+    				account.setProvincia(rs.getString("provincia"));
+    				account.setAdmin(rs.getBoolean("is_admin"));
+    			}
+    			Utility.print("Retriveemailpasswd: " + statement.toString());
+    			} catch (SQLException e) {
+        throw new RuntimeException(e);
+    }
+    			
+    			
 
 connection.close();
 
-return user;
+return account;
 }
 	
 	}
