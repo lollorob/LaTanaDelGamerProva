@@ -8,7 +8,7 @@
 		 		<li><a href="#">Ordini</a>
 		 		<li><a href="#">Categorie</a>
 		 		<li><a href="<%= request.getAttribute("context")%>/Dashboard/prodotti">Prodotti</a>
-		 		<li><a href="#">Disconnetti</a>	
+		 		<li><a href="<%=request.getAttribute("context")%>/accounts/logout">Disconnetti</a>	
 		 	</ul>
 	 	</nav>
 	

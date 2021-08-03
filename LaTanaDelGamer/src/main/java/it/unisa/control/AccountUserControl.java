@@ -2,6 +2,7 @@ package it.unisa.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,9 +13,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+import java.util.ArrayList;
 
 import it.unisa.model.AccountUserBean;
 import it.unisa.model.AccountUserModelDS;
+import it.unisa.model.CategoriaBean;
+import it.unisa.model.CategoriaModelDS;
+import it.unisa.model.OrdineBean;
+import it.unisa.model.OrdineModelDS;
+import it.unisa.model.ProdottoBean;
+import it.unisa.model.ProdottoModelDS;
+
 
 
 
@@ -23,12 +32,7 @@ public class AccountUserControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private AccountUserModelDS tmp;
 	
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		DataSource ds = null;
-		tmp = new AccountUserModelDS(ds);
-	}
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession();
@@ -65,7 +69,6 @@ public class AccountUserControl extends HttpServlet {
 			
 		
 		case "/logout":
-			System.out.println("logoutlogoutlogout");
 			session.invalidate();
             response.sendRedirect(request.getContextPath()+"/accounts/loginAdmin");
             
@@ -115,7 +118,32 @@ public class AccountUserControl extends HttpServlet {
 				e.printStackTrace();
 			}
             if (user !=null && user.isAdmin()) { //SE ADMIN
+            	 	OrdineModelDS ordine = new OrdineModelDS(ds);
+            	 	CategoriaModelDS categoria = new CategoriaModelDS(ds);
+            	 	AccountUserModelDS utente = new AccountUserModelDS(ds);
+            	 	ProdottoModelDS prodotto = new ProdottoModelDS(ds);
+            	 	
                     session.setAttribute("adminRoles", true);
+                    session.setAttribute("nomeAdmin",user.getNome());
+                   
+                    Collection<OrdineBean> ord;
+					try {
+						ord = ordine.doRetrieveAll("");
+	                    request.setAttribute("numeroOrdini",ord.size());
+	                    
+	                    Collection<CategoriaBean> cat = categoria.doRetrieveAll("");
+	                    request.setAttribute("numeroCategorie",cat.size());
+	                    
+	                    Collection<AccountUserBean> ute = utente.doRetrieveAll("");
+	                    request.setAttribute("numeroClienti",ute.size());
+	                    
+	                    Collection<ProdottoBean> pro = prodotto.doRetrieveAll("");
+	                    request.setAttribute("numeroProdotti",pro.size());
+	                    
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+					
                     request.getRequestDispatcher("/WEB-INF/Views/Dashboard/home.jsp").forward(request, response);
                     
             }else{ // ALTRIMENTI NON SEI AUTORIZZATO
