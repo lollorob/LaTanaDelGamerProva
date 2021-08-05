@@ -4,7 +4,7 @@
 <html>
 <head>
  <jsp:include page="/WEB-INF/Views/PagineComuni/head.jsp"> 
- 	<jsp:param name="title" value ="Home"/>
+ 	<jsp:param name="title" value ="Crea prodotto | Admin"/>
  	<jsp:param name="style" value = "prodotto.css"/>
  	<jsp:param name="script" value = "dashboard.js"/>
  </jsp:include>

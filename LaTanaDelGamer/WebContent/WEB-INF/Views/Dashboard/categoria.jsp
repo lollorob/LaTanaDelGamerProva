@@ -4,8 +4,8 @@
 <html>
 <head>
  <jsp:include page="/WEB-INF/Views/PagineComuni/head.jsp"> 
- 	<jsp:param name="title" value ="Home"/>
- 	<jsp:param name="style" value = "prodotto.css"/>
+ 	<jsp:param name="title" value ="Crea categoria | Admin"/>
+ 	<jsp:param name="style" value = "categoria.css"/>
  	<jsp:param name="script" value = "dashboard.js"/>
  </jsp:include>
  
