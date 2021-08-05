@@ -17,7 +17,8 @@
  	Collection<?>  categorie = (Collection<?>)session.getAttribute("listaCategorie");
  
  	if(categorie == null) {
- 		System.out.println("NON CI SONO CATEGORIE");
+ 		System.out.println("NON CI SONO CATEGORIE strunz");
+ 		
  		return;
  	}
  %>
@@ -111,7 +112,7 @@
 				CategoriaBean bean = (CategoriaBean)it.next();
 			
 	%>
-									<option value="Categorie"><%= bean.getNome() %></option>
+									<option value="<%= bean.getNome() %>"><%= bean.getNome() %></option>
 									  <%		}
 		} %>
 								</select>

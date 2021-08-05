@@ -127,19 +127,12 @@ public class ProdottoControl extends HttpServlet {
 							message = message + fileName + "\n";
 						} else {
 							request.setAttribute("error2", "Errore: Bisogna selezionare almeno un file");
-
 						}
 					}
 				}
-
 				request.setAttribute("message2", message);
-
 				response.sendRedirect(request.getContextPath() + "/Dashboard/prodotti");
-		
-		
 			}
-		
-		
 		}
 	}
 	

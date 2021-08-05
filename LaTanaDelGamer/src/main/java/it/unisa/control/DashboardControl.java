@@ -113,7 +113,7 @@ public class DashboardControl extends HttpServlet {
 			break;
 			
 		case "/prodotti":
-			
+		{
 			ProdottoModelDS proDS = new ProdottoModelDS(ds);
 			CategoriaModelDS catDS = new CategoriaModelDS(ds);
 			try {
@@ -127,8 +127,21 @@ public class DashboardControl extends HttpServlet {
 				e.printStackTrace();
 			}
 			request.getRequestDispatcher("/WEB-INF/Views/Dashboard/prodotti.jsp").forward(request, response);
+		}
 			break;
-			
+		
+		case "/categorie":
+		{
+			CategoriaModelDS catDS = new CategoriaModelDS(ds);
+			try {
+				Collection<CategoriaBean> categoria = catDS.doRetrieveAll("");
+				session.setAttribute("listaCat",categoria);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			request.getRequestDispatcher("/WEB-INF/Views/Dashboard/categorie.jsp").forward(request, response);
+		}
+			break;
 		
 		default:
 			response.sendError(HttpServletResponse.SC_NOT_FOUND, "Risorsa non Trovata");
