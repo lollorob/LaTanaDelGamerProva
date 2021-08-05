@@ -113,7 +113,14 @@ public class DashboardControl extends HttpServlet {
 			break;
 			
 		case "/prodotti":
-			
+			ProdottoModelDS proDS = new ProdottoModelDS(ds);
+			try {
+				Collection<ProdottoBean> prodotto = proDS.doRetrieveAll("");
+				session.setAttribute("listaProdotti",prodotto);
+			} catch (SQLException e) {
+				
+				e.printStackTrace();
+			}
 			request.getRequestDispatcher("/WEB-INF/Views/Dashboard/prodotti.jsp").forward(request, response);
 			break;
 			

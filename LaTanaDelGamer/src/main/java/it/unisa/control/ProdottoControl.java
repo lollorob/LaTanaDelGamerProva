@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,6 +18,8 @@ import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
 import it.unisa.model.AccountUserModelDS;
+import it.unisa.model.CategoriaBean;
+import it.unisa.model.CategoriaModelDS;
 import it.unisa.model.ProdottoBean;
 import it.unisa.model.ProdottoModelDS;
 import it.unisa.utils.Utility;
@@ -50,7 +53,7 @@ public class ProdottoControl extends HttpServlet {
 				request.getRequestDispatcher("/WEB-INF/Views/Dashboard/prodotto.jsp").forward(request, response);
 				break;
 				
-			case "/crea":
+			case "/crea":			
 				request.getRequestDispatcher("/WEB-INF/Views/Dashboard/prodotto.jsp").forward(request, response);
 				break;
 				
@@ -74,8 +77,16 @@ public class ProdottoControl extends HttpServlet {
 				DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
 	
 				ProdottoModelDS model = new ProdottoModelDS(ds);
+				CategoriaModelDS catDS = new CategoriaModelDS(ds);
 				
 				try {	
+					
+					
+					Collection<CategoriaBean> categoria = catDS.doRetrieveAll("");
+					
+					session.setAttribute("listaCategorie",categoria);
+					
+					
 					ProdottoBean prodotto = new ProdottoBean();
 					
 					
@@ -129,16 +140,9 @@ public class ProdottoControl extends HttpServlet {
 
 				request.setAttribute("message2", message);
 
-			
-				
-				
-			  
-				RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/index.jsp");
-				dispatcher.forward(request, response);
-			   
-			    
-				
-					
+				response.sendRedirect(request.getContextPath() + "/Dashboard/prodotti");
+		
+		
 			}
 		
 		

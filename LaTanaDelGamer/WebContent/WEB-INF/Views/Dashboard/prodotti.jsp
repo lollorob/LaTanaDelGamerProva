@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,it.unisa.model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +13,14 @@
 	  response.sendRedirect(request.getContextPath() + "/accounts/loginAdmin"); 
 	}%> 
  
+  <%
+ 	Collection<?> prodotti = (Collection<?>)session.getAttribute("listaProdotti");
+ 
+ 	if(prodotti == null) {
+ 		System.out.println("Collection Prodotti NULL");
+ 		return;
+ 	}
+ %>
 
 </head>
 
@@ -27,7 +35,46 @@
 			Benvenuto! Quale operazione desidera effettuare?
 		</header>
 		<caption><a href="/LaTanaDelGamer/prodotti/crea">Aggiungi Prodotto</a></caption>
-	<%@include file="/WEB-INF/Views/PagineComuni/tab.jsp" %> 
+	 	<div id="tabella"> 
+    <table> 
+       <thead> 
+          <tr> 
+        <th>Id-Prodotto</th>
+        <th>Nome</th>
+        <th>Prezzo</th>
+        <th>Descrizione</th>
+        <th>Casa Produttrice</th>
+        <th>Quantità</th>
+        <th>Categoria</th>
+          </tr> 
+               <%
+		if(prodotti != null && prodotti.size() > 0) {
+			
+			Iterator<?> it = prodotti.iterator();
+			while(it.hasNext()) {
+				ProdottoBean bean = (ProdottoBean)it.next();
+			
+	%>
+       </thead> 
+       <tbody> 
+          <tr>
+             <td data-title="Id-Prodotto"><%=bean.getId_prodotto() %></td> 
+             <td data-title="Nome"><%=bean.getNome() %></td> 
+             <td data-title="Prezzo"><%=bean.getPrezzo() %></td> 
+             <td data-title="Descrizione"><%=bean.getDescrizione() %></td> 
+             <td data-title="Casa Produttrice"><%=bean.getCasaProduttrice() %></td> 
+             <td data-title="Quantità"><%=bean.getQuantita()%></td> 
+             <td data-title="Categoria"><%=bean.getnomeCategoria() %></td> 
+          </tr>
+      <%		}
+		} else { %>
+		<tr>
+			<td colspan="15">Non ci sono Prodotti</td>
+		</tr>
+	<% } %> 
+       </tbody>
+    </table> 
+ </div>
        		
        	</div>	
 

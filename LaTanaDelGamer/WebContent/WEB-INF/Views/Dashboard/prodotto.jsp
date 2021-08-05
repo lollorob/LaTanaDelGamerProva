@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="java.util.*,it.unisa.model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +12,15 @@
   <% if(session.getAttribute("adminRoles") == null){	
 	  response.sendRedirect(request.getContextPath() + "/accounts/loginAdmin"); 
 	}%> 
+
+   <%
+ 	Collection<?>  categorie = (Collection<?>)session.getAttribute("listaCategorie");
  
+ 	if(categorie == null) {
+ 		System.out.println("NON CI SONO CATEGORIE");
+ 		return;
+ 	}
+ %>
  <script type="text/javascript" src="/LaTanaDelGamer/js/prodotto.js"></script>
 
 </head>
@@ -89,18 +97,28 @@
 							<input id="copertina" name="copertina" type="file" placeholder="Copertina"><br>
 						</div>
 					</div>
-					
+ <%
+		if(categorie != null && categorie.size() > 0) {
+			
+			Iterator<?> it = categorie.iterator();
+			while(it.hasNext()) {
+				CategoriaBean bean = (CategoriaBean)it.next();
+			
+	%>
 					<div class="riga">
 						<div class="nome">	
 							<label for="nome_categoria">Categoria</label>
 						</div>
 								<select id="nome_categoria" name="nome_categoria">
-									<option value="Sparatutto">Sparatutto</option>
-									<option value="Sportivi">Sportivi</option>
-									<option value="NonEsiste">ProvaErrore</option>
+									<option value="Categorie"><%= bean.getNome() %></option>
 								</select>
 					</div>	
-					
+					      <%		}
+		} else { %>
+		<tr>
+			<td colspan="15">Non ci sono Categorie</td>
+		</tr>
+	<% } %> 
 					
 						<button type="submit" class="bottone" onClick="return valida()">Crea</button>
 						
