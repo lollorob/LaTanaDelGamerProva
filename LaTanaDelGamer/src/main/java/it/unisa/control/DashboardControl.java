@@ -113,10 +113,15 @@ public class DashboardControl extends HttpServlet {
 			break;
 			
 		case "/prodotti":
+			
 			ProdottoModelDS proDS = new ProdottoModelDS(ds);
+			CategoriaModelDS catDS = new CategoriaModelDS(ds);
 			try {
 				Collection<ProdottoBean> prodotto = proDS.doRetrieveAll("");
 				session.setAttribute("listaProdotti",prodotto);
+				
+				Collection<CategoriaBean> categoria = catDS.doRetrieveAll("");
+				session.setAttribute("listaCategorie",categoria);
 			} catch (SQLException e) {
 				
 				e.printStackTrace();

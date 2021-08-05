@@ -4,9 +4,15 @@
 
 
  table { 
-     width: 100%; 
+     margin-right:10px; 
  } 
- th, td { 
+ 
+ th{
+ 	color: white;
+    background: linear-gradient(120deg,#2980b9,#8e44ad);
+ }
+ 
+ td { 
      border: 1px solid #c3c3c3; 
      text-align: center; 
  } 

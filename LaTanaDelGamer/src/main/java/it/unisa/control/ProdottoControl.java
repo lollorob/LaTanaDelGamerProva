@@ -77,16 +77,10 @@ public class ProdottoControl extends HttpServlet {
 				DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
 	
 				ProdottoModelDS model = new ProdottoModelDS(ds);
-				CategoriaModelDS catDS = new CategoriaModelDS(ds);
+			
 				
 				try {	
-					
-					
-					Collection<CategoriaBean> categoria = catDS.doRetrieveAll("");
-					
-					session.setAttribute("listaCategorie",categoria);
-					
-					
+							
 					ProdottoBean prodotto = new ProdottoBean();
 					
 					

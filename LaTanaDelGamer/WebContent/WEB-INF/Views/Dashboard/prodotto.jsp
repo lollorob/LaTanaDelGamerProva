@@ -97,7 +97,13 @@
 							<input id="copertina" name="copertina" type="file" placeholder="Copertina"><br>
 						</div>
 					</div>
- <%
+
+					<div class="riga">
+						<div class="nome">	
+							<label for="nome_categoria">Categoria</label>
+						</div>
+								<select id="nome_categoria" name="nome_categoria">
+								 <%
 		if(categorie != null && categorie.size() > 0) {
 			
 			Iterator<?> it = categorie.iterator();
@@ -105,20 +111,12 @@
 				CategoriaBean bean = (CategoriaBean)it.next();
 			
 	%>
-					<div class="riga">
-						<div class="nome">	
-							<label for="nome_categoria">Categoria</label>
-						</div>
-								<select id="nome_categoria" name="nome_categoria">
 									<option value="Categorie"><%= bean.getNome() %></option>
+									  <%		}
+		} %>
 								</select>
 					</div>	
-					      <%		}
-		} else { %>
-		<tr>
-			<td colspan="15">Non ci sono Categorie</td>
-		</tr>
-	<% } %> 
+					   
 					
 						<button type="submit" class="bottone" onClick="return valida()">Crea</button>
 						
