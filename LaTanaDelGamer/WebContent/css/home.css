@@ -87,11 +87,11 @@
 	}
 	
 	#contenuto .info{
-	margin: 30px;
- 	color: #717171;
-  	line-height: 25px;
-  	float:left;
-  	clear:both;
+		margin: 30px;
+ 		color: #717171;
+  		line-height: 25px;
+  		float:left;
+  		clear:both;
   	
   		
 	}
@@ -101,45 +101,72 @@
 	}
 	
 	.freccia{
-	width:30px;
-	height:30px;
-	position: absolute;
-	bottom:50%;
-	transition:0.5s;
+		width:30px;
+		height:30px;
+		position: absolute;
+		bottom:50%;
+		transition:0.5s;
 	}
 
 
     
     .clienti{
-    	border: 5px solid black;
-    	width:40vw;
-    	height:45vh;
-    	min-height:500px;
-    	float:left;
-    	margin:10px;
+	   	display: flex;
+	    position: relative;
+	    flex-direction: column;
+	    align-items: center;
+	    border: solid 2px black;
+	    border-radius: 10px;
+	    width: 45%;
+	    float: left;
+	    background-color: white;
+	    margin: 0 auto;
+	    
+	    box-sizing: border-box;
+	    margin-left: 20px;
+	    margin-top: 30px;
+	    height: 45vh;
+	    min-height: 500px;
     	
     }
     
 
     
     .clienti h4{
-    	height:80px;
-    	background: linear-gradient(120deg,#2980b9,#8e44ad);
-    	color:white; 
+     height: 80px;
+    background: linear-gradient(120deg,#2980b9,#8e44ad);
+    color: white;
+    text-align: center;
+    line-height: 80px;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 10px;
+    border: 5px solid lightblue;
+    bottom: 10px;
+    }
+    
+    
+    .clienti h2{
     	text-align:center;
-    	line-height: 80px;
-    	
-    	
     	
     }
     
     
-    @media screen and (max-width: 710px) {
-  .clienti {
-    width: 100%;
-   
+    
+    
+    @media screen and (max-width: 800px) {
+	 	.clienti {
+	   		width:90%;
+	   		
+	  	}
+   	} 
+   	
+   	 	
+  	.clienti p{
+  		font-size:250%;
+    	transform: translateY(200% );
   	}
-}
+
 footer{
  		background-color: #e7e7e7;
  		text-align: center;

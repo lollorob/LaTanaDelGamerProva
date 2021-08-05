@@ -8,9 +8,9 @@ GRANT ALL ON la_tana_del_gamer.* TO 'lollorob'@'localhost';
 
 DROP TABLE IF EXISTS AccountUser;
 create table AccountUser(
-	username varchar(20) PRIMARY KEY NOT NULL,
+	username varchar(12) PRIMARY KEY NOT NULL,
     e_mail varchar(50) NOT NULL UNIQUE,
-    passwd varchar(100) NOT NULL,
+    passwd varchar(200) NOT NULL,
     nome varchar(50) NOT NULL,
     cognome varchar(50) NOT NULL,
     datadinascita date NOT NULL,
@@ -36,7 +36,7 @@ DROP TABLE IF EXISTS Prodotto;
 create table Prodotto
 (
 	id_prodotto int NOT NULL AUTO_INCREMENT,
-	nome varchar(70) NOT NULL,
+	nome varchar(100) NOT NULL,
     prezzo float NOT NULL,
     descrizione varchar(500) NOT NULL,
     casaproduttrice varchar(50) NOT NULL,

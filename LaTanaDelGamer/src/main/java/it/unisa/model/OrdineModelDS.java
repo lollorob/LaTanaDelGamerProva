@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
@@ -355,6 +356,42 @@ public class OrdineModelDS implements EntityModel<OrdineBean> {
 	}
 
 
+	
+	public String CalculateMoney() throws SQLException{
+
+		Connection connection = null;
+		PreparedStatement preparedStatement = null;
+		
+
+		
+		String selectSQL = "select SUM(importo) FROM ordine";
+		String somma;
+		float soldi;
+		try {
+			connection = ds.getConnection();
+			preparedStatement = connection.prepareStatement(selectSQL);
+
+			Utility.print("CalculateMoney: " + preparedStatement.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+
+			 rs.next();
+		     somma= rs.getString(1);
+		     soldi= Float.parseFloat(somma);
+		
+		     somma=String.valueOf(soldi);
+		} finally {
+			try {
+				if (preparedStatement != null)
+					preparedStatement.close();
+			} finally {
+				if (connection != null) {
+					connection.close();
+				}
+			}
+		}
+
+		 return somma;
+	}
 }
 
 

@@ -3,12 +3,12 @@
 		<nav>
 			
 		 	<ul >
-		 		<li><a href="<%= request.getAttribute("context")%>/Dashboard/home">Home</a>
+		 		<li><a href="<%= request.getAttribute("context")%>/Dashboard/home" ">Home</a>
 		 		<li><a href="/laTanaDelGamer/dashboard/clienti">Clienti</a>
 		 		<li><a href="#">Ordini</a>
 		 		<li><a href="#">Categorie</a>
 		 		<li><a href="<%= request.getAttribute("context")%>/Dashboard/prodotti">Prodotti</a>
-		 		<li><a href="<%=request.getAttribute("context")%>/accounts/logout">Disconnetti</a>	
+		 		<li><a href="<%=request.getAttribute("context")%>/Dashboard/logout">Disconnetti</a>	
 		 	</ul>
 	 	</nav>
 	

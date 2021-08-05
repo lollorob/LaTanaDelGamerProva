@@ -120,21 +120,20 @@ public class ProdottoModelDS implements EntityModel<ProdottoBean> {
 		Connection connection = null;
 		PreparedStatement preparedStatement = null;
 
-		String insertSQL = "INSERT INTO prodotto" + " (id_prodotto, nome, prezzo, descrizione, casaproduttrice, quantita, copertina, nome_categoria) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String insertSQL = "INSERT INTO prodotto" + " (nome, prezzo, descrizione, casaproduttrice, quantita, copertina, nome_categoria) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(insertSQL);
 
-			preparedStatement.setInt(1, item.getId_prodotto());
-			preparedStatement.setString(2, item.getNome());
-			preparedStatement.setFloat(3, item.getPrezzo());
-			preparedStatement.setString(4, item.getDescrizione());
-			preparedStatement.setString(5, item.getCasaProduttrice());
-			preparedStatement.setInt(6, item.getQuantita());
-			preparedStatement.setString(7, item.getCopertina());
-			preparedStatement.setString(8, item.getnomeCategoria());
+			preparedStatement.setString(1, item.getNome());
+			preparedStatement.setFloat(2, item.getPrezzo());
+			preparedStatement.setString(3, item.getDescrizione());
+			preparedStatement.setString(4, item.getCasaProduttrice());
+			preparedStatement.setInt(5, item.getQuantita());
+			preparedStatement.setString(6, item.getCopertina());
+			preparedStatement.setString(7, item.getnomeCategoria());
 			
 			Utility.print("doSave: " + preparedStatement.toString());
 			preparedStatement.executeUpdate();

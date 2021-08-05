@@ -9,6 +9,7 @@
  <jsp:include page="/WEB-INF/Views/PagineComuni/head.jsp">
     	<jsp:param name="title" value="Login Admin"/>
     	<jsp:param name="style" value = "loginAdmin.css"/>
+    	<jsp:param name="script" value = "loginAdmin.js"/>
   </jsp:include>
   
   
@@ -16,7 +17,7 @@
 	    boolean adminRoles = (Boolean) session.getAttribute("adminRoles");
 	    if( adminRoles == true) {
 		
-	    request.getRequestDispatcher("/WEB-INF/Views/Dashboard/home.jsp").forward(request, response);
+	    	response.sendRedirect(request.getContextPath() + "/Dashboard/home");
 		} 
 	}%>     
 
@@ -30,20 +31,20 @@
 	<img src="/LaTanaDelGamer/immagini/adminLogo.png"  alt="noLogo" class="logo">
 	<h1>Login </h1>
 	
-	<form  action="<%= request.getAttribute("context")%>/accounts/loginAdmin" method="post">
+	<form  action="<%= request.getAttribute("context")%>/Dashboard/home" method="post" name="login" >
 		
 		<div class="textbox">
-			<input type="text" minlength="5" name="username" placeholder="Username" required>
+			<input type="text"  name="username" placeholder="Username" size="12" >
 			
  		</div>
  		
  		<div class="textbox">
-			<input type="password" name="passwd"  placeholder="Password "required>
+			<input type="password" name="passwd"  placeholder="Password ">
 			
 			
  		</div>
  		
- 		<button type="submit" class="bottone">Accedi</button>
+ 		<button type="submit" class="bottone" onClick="return valida()">Accedi</button>
  		<% if(session.getAttribute("failedAdmin") != null){
 		    boolean failedAdmin = (Boolean) session.getAttribute("failedAdmin");
 		    if( failedAdmin == true) {%>

@@ -17,21 +17,7 @@
 
 <body>
 
-	<div id="sidebar" onmouseleave="closeMenu()">
-		<h3>Pannello</h3>
-		<nav>
-			
-		 	<ul >
-		 		<li><a href="#">Home</a>
-		 		<li><a href="/laTanaDelGamer/dashboard/clienti">Clienti</a>
-		 		<li><a href="#">Ordini</a>
-		 		<li><a href="#">Categorie</a>
-		 		<li><a href="<%= request.getAttribute("context")%>/Dashboard/prodotti">Prodotti</a>
-		 		<li><a href="<%=request.getAttribute("context")%>/accounts/logout">Disconnetti</a>	
-		 	</ul>
-	 	</nav>
-	
-	</div>
+	<%@include file="/WEB-INF/Views/PagineComuni/menu.jsp" %> 
 	
 	<img src="/LaTanaDelGamer/icone/freccia.svg" alt="Freccia" class="freccia" onmouseover="openMenu()" id="menu">
 	<div id="contenuto" onClick="closeMenu()">
@@ -40,29 +26,29 @@
 			Benvenuto! Quale operazione desidera effettuare?
 		</header>
 		
-		<div class="info">
+		
        		<div class="clienti">
        			<h4>Clienti Registrati</h4>
-       			<h2><%= request.getAttribute("numeroClienti") %></h2>
+       			<p><%=request.getAttribute("numeroClienti") %></p>
        		</div>
        		
        		<div class="clienti">
-       			<h4>utenti registrati</h4>
-       			<h2>24</h2>
+       			<h4>Guadagno Totale</h4>
+       			<p><%=request.getAttribute("guadagnoTotale") %> €</p>
        		</div>
        		
        		<div class="clienti">
-       			<h4> registrati</h4>
-       			<h2>24</h2>
+       			<h4>Numero Ordini</h4>
+       			<p><%=request.getAttribute("numeroOrdini") %></p>
        		</div>
        		
        		<div class="clienti">
-       			<h4>clienti registrati</h4>
-       			<h2>24</h2>
+       			<h4>Prodotti</h4>
+       			<p><%=request.getAttribute("numeroProdotti") %></p>
        		</div>
        		
        		
-       	</div>	
+       		
 
     	
     	

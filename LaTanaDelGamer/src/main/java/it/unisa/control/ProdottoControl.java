@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
@@ -29,7 +30,7 @@ import it.unisa.utils.Utility;
 		) //per mandare file binari
 public class ProdottoControl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static String SAVE_DIR = "";
+	static String SAVE_DIR = "immaginiDB";
 
 	public void init() {
 		// Get the file location where it would be stored
@@ -66,17 +67,18 @@ public class ProdottoControl extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
+		HttpSession session=request.getSession();
 		
 		switch(path) {
 			case "/crea":{
 				DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
-				
+	
 				ProdottoModelDS model = new ProdottoModelDS(ds);
 				
 				try {	
 					ProdottoBean prodotto = new ProdottoBean();
 					
-					prodotto.setId_prodotto(Integer.parseInt(request.getParameter("id_prodotto")));
+					
 					prodotto.setNome(request.getParameter("nome"));
 					prodotto.setPrezzo(Float.parseFloat(request.getParameter("prezzo")));
 					prodotto.setDescrizione(request.getParameter("descrizione"));
@@ -101,9 +103,10 @@ public class ProdottoControl extends HttpServlet {
 					return;
 				}				
 				
-				
+				SAVE_DIR="immaginiDB";
 				String savePath = request.getServletContext().getRealPath("") + File.separator + SAVE_DIR;
-
+				
+				System.out.println("path di salvataggio:" + savePath);
 				File fileSaveDir = new File(savePath);
 				if (!fileSaveDir.exists()) {
 					fileSaveDir.mkdir();
