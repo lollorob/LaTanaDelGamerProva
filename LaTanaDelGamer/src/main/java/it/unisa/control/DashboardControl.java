@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,6 +21,7 @@ import it.unisa.model.OrdineBean;
 import it.unisa.model.OrdineModelDS;
 import it.unisa.model.ProdottoBean;
 import it.unisa.model.ProdottoModelDS;
+import it.unisa.utils.Utility;
 
 @WebServlet(name= "DashboardControl" , value="/Dashboard/*")
 public class DashboardControl extends HttpServlet {
@@ -38,7 +40,7 @@ public class DashboardControl extends HttpServlet {
 		
 		switch(path) {
 		case "/home":
-			
+		{
 		    String username = (String) session.getAttribute("username");
 		    String passwd = (String) session.getAttribute("passwd");
 		   
@@ -102,14 +104,15 @@ public class DashboardControl extends HttpServlet {
                 session.removeAttribute("adminRoles");
                 response.sendRedirect(request.getContextPath() + "/accounts/loginAdmin");    
             }
-            
+		}
 		break;
 		
 		
 		case "/logout":
+		{
 			session.invalidate();
             response.sendRedirect(request.getContextPath()+"/accounts/loginAdmin");
-            
+		}    
 			break;
 			
 		case "/prodotti":
@@ -142,10 +145,36 @@ public class DashboardControl extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/Views/Dashboard/categorie.jsp").forward(request, response);
 		}
 			break;
+			
+		case "/ordini":
+		{
+			OrdineModelDS ordDS = new OrdineModelDS(ds);
+			Collection<OrdineBean> ordine;
+			try {
+				ordine = ordDS.doRetrieveAll("");
+				session.setAttribute("listaOrdini",ordine);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			request.getRequestDispatcher("/WEB-INF/Views/Dashboard/ordini.jsp").forward(request, response);
+		}
+		break;
+			
+		case "/account":
+		{
+			AccountUserModelDS accDS = new AccountUserModelDS(ds);
+			try {
+				Collection<AccountUserBean> account = accDS.doRetrieveAll("is_admin");
+				session.setAttribute("listaAccount", account);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			request.getRequestDispatcher("/WEB-INF/Views/Dashboard/accounts.jsp").forward(request, response);
+		}
+		break;
 		
 		default:
 			response.sendError(HttpServletResponse.SC_NOT_FOUND, "Risorsa non Trovata");
-			
 		}	
 	}
 }

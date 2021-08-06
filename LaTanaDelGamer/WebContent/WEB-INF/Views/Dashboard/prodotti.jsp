@@ -46,6 +46,7 @@
         <th>Casa Produttrice</th>
         <th>Quantità</th>
         <th>Categoria</th>
+        <th>Azioni</th>
           </tr> 
                <%
 		if(prodotti != null && prodotti.size() > 0) {
@@ -65,6 +66,15 @@
              <td data-title="Casa Produttrice"><%=bean.getCasaProduttrice() %></td> 
              <td data-title="Quantità"><%=bean.getQuantita()%></td> 
              <td data-title="Categoria"><%=bean.getnomeCategoria() %></td> 
+             <td>
+             	<form method="POST" action="/LaTanaDelGamer/prodotti/aggiorna">
+             		<button type="submit" name="id" class="bottone" value="<%=bean.getId_prodotto()%>">Aggiorna</button>
+             	</form>
+             	<form method="POST" action="/LaTanaDelGamer/prodotti/elimina">
+             		<button type="submit" name="id" class="bottone" value="<%=bean.getId_prodotto()%>">Elimina</button>
+             	</form>
+             	
+			 </td>
           </tr>
       <%		}
 		} else { %>

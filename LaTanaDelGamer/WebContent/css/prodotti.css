@@ -4,7 +4,8 @@
 
 
  table { 
-     margin-right:10px; 
+     width: 95%;
+    margin-right: 10px;
  } 
  
  th{
@@ -75,5 +76,11 @@
  	#tabella td:before { content: attr(data-title); } 
  }  
  
+ .bottone{
+	border:0px;
+ 	background:transparent;
+ 	color: blue;
+ 	cursor:pointer;
+}
  
  
