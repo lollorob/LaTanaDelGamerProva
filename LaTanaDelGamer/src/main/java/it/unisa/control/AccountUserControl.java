@@ -42,19 +42,13 @@ public class AccountUserControl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
 		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
-
-		AccountUserModelDS model = new AccountUserModelDS(ds);
-
-		
-		String sort = request.getParameter("sort");
-		
-		String action = request.getParameter("action");
+		HttpSession session=request.getSession();
 		
 		switch(path) {
 		
 		case "/crea":
 		{
-			if (action.equals("insert")) {
+			AccountUserModelDS model = new AccountUserModelDS(ds);
 				try {
 					String username = request.getParameter("username");
 					String e_mail = request.getParameter("e_mail");
@@ -90,13 +84,28 @@ public class AccountUserControl extends HttpServlet {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-			}
 		}
 			break;
-			
+		case "/dettagli":
+		{	
+			AccountUserModelDS model = new AccountUserModelDS(ds);
+			try {
+				String username = request.getParameter("id");
+				request.removeAttribute("account");
+				session.setAttribute("clienti", model.doRetrieveByKey(username));
+				
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			response.sendRedirect(request.getContextPath() + "/Dashboard/account");
+		}
+			break;
+		
 		case "/aggiorna":
 		{
-			if (action.equals("update")) {
+			AccountUserModelDS model = new AccountUserModelDS(ds);
+			AccountUserBean account = new AccountUserBean();
 				try {
 					String username = request.getParameter("username");
 					String e_mail = request.getParameter("e_mail");
@@ -109,7 +118,6 @@ public class AccountUserControl extends HttpServlet {
 				    String citta = request.getParameter("citta");
 				    String provincia = request.getParameter("provincia");
 
-					AccountUserBean account = new AccountUserBean();
 					account.setUsername(username);
 					account.seteMail(e_mail);
 
@@ -126,16 +134,18 @@ public class AccountUserControl extends HttpServlet {
 					request.setAttribute("message", "Account " + account.getUsername() + " AGGIORNATO");
 				} catch (SQLException e) {
 					e.printStackTrace();
-			}			
-		}
+			}
+				response.sendRedirect(request.getContextPath() + "/Dashboard/account");
 	}
 			break;
 		
 		case "/cancella":{
-			if (action.equals("delete")) {
+			AccountUserModelDS model = new AccountUserModelDS(ds);
+			AccountUserBean bean = new AccountUserBean();
+			
 					try {
 						String username = request.getParameter("id");
-						AccountUserBean bean = model.doRetrieveByKey(username);
+						bean = model.doRetrieveByKey(username);
 						if (bean != null && !bean.isEmpty()) {
 						model.doDelete(bean);
 						request.setAttribute("message", "Account " + bean.getUsername() + " CANCELLATO");
@@ -143,7 +153,7 @@ public class AccountUserControl extends HttpServlet {
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
-			}
+					response.sendRedirect(request.getContextPath() + "/Dashboard/account");
 		}
 			break;
 			
