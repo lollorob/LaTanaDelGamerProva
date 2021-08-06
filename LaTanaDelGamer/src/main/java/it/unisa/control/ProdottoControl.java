@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
+import it.unisa.model.AccountUserBean;
 import it.unisa.model.AccountUserModelDS;
 import it.unisa.model.CategoriaBean;
 import it.unisa.model.CategoriaModelDS;
@@ -44,6 +45,8 @@ public class ProdottoControl extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
+		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
+
 		switch (path) {
 			case "/": 
 				request.getRequestDispatcher("/WEB-INF/Views/Dashboard/prodotti.jsp").forward(request, response);
@@ -52,6 +55,8 @@ public class ProdottoControl extends HttpServlet {
 			case "/mostra":
 				request.getRequestDispatcher("/WEB-INF/Views/Dashboard/prodotto.jsp").forward(request, response);
 				break;
+			
+			
 				
 			case "/crea":			
 				request.getRequestDispatcher("/WEB-INF/Views/Dashboard/prodotto.jsp").forward(request, response);
@@ -71,11 +76,11 @@ public class ProdottoControl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
 		HttpSession session=request.getSession();
-		
+		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
 		switch(path) {
 			case "/crea":{
-				DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
-	
+				System.out.println("ooodasodso");
+			
 				ProdottoModelDS model = new ProdottoModelDS(ds);
 			
 				
@@ -133,20 +138,50 @@ public class ProdottoControl extends HttpServlet {
 				request.setAttribute("message2", message);
 				response.sendRedirect(request.getContextPath() + "/Dashboard/prodotti");
 			}
-		}
-	}
-	
-	
-	private String extractFileName(Part part) {
-		// content-disposition: form-data; name="file"; filename="file.txt"
-		String contentDisp = part.getHeader("content-disposition");
-		String[] items = contentDisp.split(";");
-		for (String s : items) {
-			if (s.trim().startsWith("filename")) {
-				return s.substring(s.indexOf("=") + 2, s.length() - 1);
+			break;
+		
+			case "/elimina" :{
+				
+				String id = request.getParameter("id");
+				int chiave=Integer.parseInt(id);
+				ProdottoModelDS model= new ProdottoModelDS(ds);
+				ProdottoBean bean= new ProdottoBean();
+				try {
+					bean = model.doRetrieveByKey(chiave);
+					
+					if (bean != null) {
+						model.doDelete(bean);
+					}
+					
+				} catch (SQLException e) {
+					
+					e.printStackTrace();
+				}
+				
+				response.sendRedirect(request.getContextPath() + "/Dashboard/prodotti");
 			}
-		}
-		return "";
+			
+			break;
 	}
+		
+		
+		
+		
+	}
+	
+	
+			private String extractFileName(Part part) {
+				// content-disposition: form-data; name="file"; filename="file.txt"
+				String contentDisp = part.getHeader("content-disposition");
+				String[] items = contentDisp.split(";");
+				for (String s : items) {
+					if (s.trim().startsWith("filename")) {
+						return s.substring(s.indexOf("=") + 2, s.length() - 1);
+					}
+				}
+				return "";
+			}
+	
+	
 
 }

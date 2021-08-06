@@ -17,7 +17,7 @@
  	Collection<?>  categorie = (Collection<?>)session.getAttribute("listaCategorie");
  
  	if(categorie == null) {
- 		System.out.println("NON CI SONO CATEGORIE strunz");
+ 		System.out.println("Categorie non caricate - prodotto.jsp");
  		
  		return;
  	}
