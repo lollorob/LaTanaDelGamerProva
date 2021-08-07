@@ -35,7 +35,22 @@ public class AccountUserControl extends HttpServlet {
 	
 	@Override
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request,response);
+		String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
+		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
+
+		switch (path) {
+			case "/": 
+				request.getRequestDispatcher("/WEB-INF/Views/Dashboard/accounts.jsp").forward(request, response);
+				break;
+
+			case "/crea":			
+				request.getRequestDispatcher("/WEB-INF/Views/Dashboard/account.jsp").forward(request, response);
+				break;
+				
+			case "/loginAdmin":  //pagina login Admin
+				request.getRequestDispatcher("/WEB-INF/Views/Dashboard/loginAdmin.jsp").forward(request,response);
+			break;
+		}
     }
 
 	@Override
@@ -81,6 +96,7 @@ public class AccountUserControl extends HttpServlet {
 					account.setAdmin(admin);
 					model.doSave(account);
 					request.setAttribute("message", "Account " + account.getUsername() + " AGGIUNTO");
+					response.sendRedirect(request.getContextPath() + "/Dashboard/account");
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

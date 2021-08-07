@@ -5,7 +5,7 @@
 <head>
  <jsp:include page="/WEB-INF/Views/PagineComuni/head.jsp"> 
  	<jsp:param name="title" value ="Categorie | Admin"/>
- 	<jsp:param name="style" value = "categorie.css"/>
+ 	<jsp:param name="style" value = "accounts.css"/>
  	<jsp:param name="script" value = "dashboard.js"/>
  </jsp:include>
  
@@ -34,7 +34,7 @@
 		<header class="top">
 			Benvenuto! Quale operazione desidera effettuare?
 		</header>
-		<caption><a>Lista Degli Utenti Registrati</a></caption>
+				<caption><a href="/LaTanaDelGamer/accounts/crea">Aggiungi Utente</a></caption>
 	 	<div id="tabella"> 
     <table> 
        <thead> 
@@ -108,60 +108,124 @@
 				<td><%=account1.isAdmin()%></td>
 			</tr>
 		</table>
+		
+			<div class="tabella">
           		<form action="<%=response.encodeURL("/LaTanaDelGamer/accounts/aggiorna")%>" method="POST">
 			
-			<fieldset>
-				<legend><b>Update</b></legend>
-				<input type="hidden" name="action" value="update">
-				<input type="hidden" name="username" value="<%=account1.getUsername()%>">
+				<h4><b>Update</b></h4>
 				
-				
-				<label for="e_mail">EMAIL:</label><br>
-				<input id="e_mail" name="e_mail"  type="email" maxlength="100" placeholder="inserisci email" required value="<%=account1.geteMail()%>"><br>
+				<div class="riga">
+					<div class="nome">
+						<label for="nome">Username</label>
+					</div>
+				<div class="area">
+					<input id="username" name="username" type="text" maxlength="70" placeholder="Username" value="<%=account1.getUsername()%>"><br>
+				</div>
+			</div>
+		
+				<div class="riga">
+					<div class="nome">
+						<label for="nome">E-Mail</label>
+					</div>
+				<div class="area">
+					<input id="e_mail" name="e_mail" type="text" maxlength="100" placeholder="Inserisci E-Mail" value="<%=account1.geteMail()%>"><br>
+				</div>			
+			</div>
+			
+				<div class="riga">
+					<div class="nome">
+						<label for="nome">Nome</label>
+					</div>
+				<div class="area">
+					<input id="nome" name="nome" type="text" maxlength="20" placeholder="Inserisci Nome" value="<%=account1.getNome()%>"><br>
+				</div>
+			</div>
+			
+				<div class="riga">
+					<div class="nome">
+						<label for="nome">Cognome</label>
+					</div>
+				<div class="area">
+					<input id="cognome" name="cognome" type="text" maxlength="20" placeholder="Inserisci Cognome" value="<%=account1.getCognome()%>"><br>
+				</div>	
+			</div>
+			
+				<div class="riga">
+					<div class="nome">
+						<label for="nome">Data Di Nascita</label>
+					</div>
+				<div class="area">
+					<input id="datadinascita" name="datadinascita" type="date" value="<%=account1.getData()%>"><br>
+				</div>
+			</div>
+			
+				<div class="riga">
+					<div class="nome">
+						<label for="nome">Numero Di Ordini</label>
+					</div>
+				<div class="area">
+					<input  readonly id="n_ordini" name="n_ordini" type="number" min="0" value="<%=account1.getn_Ordini()%>"><br>
+				</div>
+			</div>
+		
+				<div class="riga">
+					<div class="nome">
+						<label for="nome">Via</label>
+					</div>
+				<div class="area">
+					<input id="via" name="via" type="text" maxlength="20" placeholder="Inserisci Via"  value="<%=account1.getVia()%>"><br>
+				</div>
+			</div>
 
-				<label for="nome">Nome:</label><br>
-				<input id="nome" name="nome" type="text" maxlength="20" placeholder="inserisci name" required value="<%=account1.getNome()%>"><br>
+				<div class="riga">
+					<div class="nome">
+						<label for="nome">Numero</label>
+					</div>
+				<div class="area">
+					<input  id="numero" name="numero" type="number" min="1" placeholder="Inserisci Numero" value="<%=account1.getNumero()%>"><br>
+				</div>
+			</div>		
+			
+				<div class="riga">
+					<div class="nome">
+						<label for="nome">CAP</label>
+					</div>
+				<div class="area">
+					<input  id="cap" name="cap" type="number" min="1"  placeholder="Inserisci CAP" value="<%=account1.getCap()%>"><br>
+				</div>
+			</div>
 
-				<label for="cognome">Cognome:</label><br>
-				<input id="cognome" name="cognome" type="text" required value="<%=account1.getCognome()%>"><br>
-
-
-				<label for="datadinascita">Data di nascita:</label><br>
-				<input id="datadinascita" name="datadinascita" type ="date" required value="<%=account1.getData()%>"><br>
-
-				<label for="n_ordini">N Ordini:</label><br>
-				<input readonly id="n_ordini" name="n_ordini" type="number" min="0" required value="<%=account1.getn_Ordini()%>"><br>
-
-				<label for="via">Via:</label><br>
-				<input id="via" name="via" type="text" maxlength="20" placeholder="inserisci via" required value="<%=account1.getVia()%>"><br>
-
-				<label for="numero">Numero:</label><br>
-				<input id="numero" name="numero" type="number" min="1" placeholder="inserisci numero" required value="<%=account1.getNumero()%>"><br>		
-
-				<label for="cap">CAP:</label><br>
-				<input id="cap" name="cap" type="number" min="1" required  placeholder="inserisci cap" value="<%=account1.getCap()%>"><br>
-
-				<label for="citta">Città:</label><br>
-				<input id="citta" name="citta" type="text" maxlength="20" placeholder="inserisci città" required value="<%=account1.getCitta()%>"><br>
-
-				<label for="prvincia">Provincia:</label><br>
-				<input id="provincia" name="provincia" type="text" maxlength="20" placeholder="inserisci via" required value="<%=account1.getProvincia()%>"><br>
-	
-				
-				<input type="submit" value="Aggiorna">
-				<input type="reset" value="Reset">
-			</fieldset>
+				<div class="riga">
+					<div class="nome">
+						<label for="nome">Città</label>
+					</div>
+				<div class="area">
+					<input  id="citta" name="citta" type="text" maxlength="20" placeholder="Inserisci Città"  value="<%=account1.getCitta()%>"><br>
+				</div>
+			</div>	
+			
+				<div class="riga">
+					<div class="nome">
+						<label for="nome">Provincia</label>
+					</div>
+				<div class="area">
+					<input  id="provincia" name="provincia" type="text" maxlength="20" placeholder="Inserisci Provincia" value="<%=account1.getProvincia()%>"><br>
+				</div>
+			</div>
+			
+			<button type="submit" class="bottone" onClick="return valida()">Aggiorna</button>
 		</form>
 		<form action="/LaTanaDelGamer/Dashboard/account" method="POST">
 		<button>Annulla</button>
 		</form>
+	</div>
+</div>
+	
 			<%  } %>
  
        </tbody> 
- </div>
-       		
-       	</div>	
 
+</div>
 
 </body>
 </html>
