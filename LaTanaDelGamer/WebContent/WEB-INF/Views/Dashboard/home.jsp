@@ -23,7 +23,7 @@
 	<div id="contenuto" onClick="closeMenu()">
 		 
 		<header class="top">
-			Benvenuto! Quale operazione desidera effettuare?
+			Benvenuto <%= session.getAttribute("username") %>! Quale operazione desidera effettuare?
 		</header>
 		
 		

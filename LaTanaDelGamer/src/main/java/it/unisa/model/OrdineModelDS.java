@@ -266,7 +266,7 @@ public class OrdineModelDS implements EntityModel<OrdineBean> {
 			connection = ds.getConnection();
 			connection.setAutoCommit(false);
 			preparedStatement = connection.prepareStatement(deleteSQL);
-			preparedStatement.setString(1, item.getUsername());
+			preparedStatement.setInt(1, item.getId_ordine());
 
 			Utility.print("doDelete: " + preparedStatement.toString());
 			preparedStatement.executeUpdate();
@@ -376,6 +376,9 @@ public class OrdineModelDS implements EntityModel<OrdineBean> {
 
 			 rs.next();
 		     somma= rs.getString(1);
+		     if(somma == null) {
+		    	 return "0";
+		     }
 		     soldi= Float.parseFloat(somma);
 		
 		     somma=String.valueOf(soldi);

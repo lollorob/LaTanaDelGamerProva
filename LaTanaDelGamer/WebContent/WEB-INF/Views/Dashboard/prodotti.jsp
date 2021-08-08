@@ -20,8 +20,17 @@
  		System.out.println("Collection Prodotti NULL");
  		return;
  	}
- %>
 
+
+
+	Collection<?>  categorie = (Collection<?>)session.getAttribute("listaCategorie");
+ 
+ 	if(categorie == null) {
+ 		System.out.println("Categorie non caricate - prodotti.jsp");
+ 		
+ 		return;
+ 	}
+ %>
 </head>
 
 <body>
@@ -56,6 +65,8 @@
 				ProdottoBean bean = (ProdottoBean)it.next();
 			
 	%>
+	
+	
        </thead> 
        <tbody> 
           <tr>
@@ -67,15 +78,17 @@
              <td data-title="Quantità"><%=bean.getQuantita()%></td> 
              <td data-title="Categoria"><%=bean.getnomeCategoria() %></td> 
              <td>
-             	<form method="POST" action="/LaTanaDelGamer/prodotti/aggiorna">
-             		<button type="submit" name="id" class="bottone" value="<%=bean.getId_prodotto()%>">Aggiorna</button>
+             	<form method="POST" action="/LaTanaDelGamer/prodotti/dettagli">
+             		<button type="submit" name="id" class="bottone" value="<%=bean.getId_prodotto()%>">Dettagli</button>
              	</form>
+             	
              	<form method="POST" action="/LaTanaDelGamer/prodotti/elimina">
              		<button type="submit" name="id" class="bottone" value="<%=bean.getId_prodotto()%>">Elimina</button>
              	</form>
              	
 			 </td>
           </tr>
+          
       <%		}
 		} else { %>
 		<tr>
@@ -84,9 +97,140 @@
 	<% } %> 
        </tbody>
     </table> 
- </div>
+ 	</div>
+
+	 <% ProdottoBean  prodotto= (ProdottoBean) session.getAttribute("prodotti");
+    	session.removeAttribute("prodotti");%>
+	
+	<%
+		if(prodotto!= null) {  
+	%>
+         		<h2>Dettagli</h2>
+		<table>
+			<tr>
+				<th>Nome</th>
+				<th>Prezzo</th>
+				<th>Descrizione</th>
+				<th>Casa Produttrice</th>
+				<th>Quantità</th>
+				<th>Copertina</th>
+				
+			</tr>
+			
+			<tr>
+				<td><%=prodotto.getNome()%></td>
+				<td><%=prodotto.getPrezzo()%></td>
+				<td><%=prodotto.getDescrizione()%></td>
+				<td><%=prodotto.getCasaProduttrice()%></td>
+				<td><%=prodotto.getQuantita()%></td>
+				<td><%=prodotto.getCopertina()%></td>
+				<td><%=prodotto.getnomeCategoria()%></td>				
+			</tr>
+		</table>
+         
+         <div class="tabella">
+			<form method="post" class="form" action="<%=response.encodeURL("/LaTanaDelGamer/prodotti/aggiorna")%>" enctype="multipart/form-data" name="prodotto">
+				
+					<h4><b>Aggiorna Prodotto</b></h4>
+					
+					
+					<div class="riga">
+						<div class="nome">
+							<label for="id">ID</label>
+						</div>
+						<div class="area">
+							<input id="id" name="id" readonly type="text" maxlength="70" placeholder="Nome" value="<%=prodotto.getId_prodotto()%>"><br>
+						</div>
+					</div>
+					
+					<div class="riga">
+						<div class="nome">
+							<label for="nome">Nome</label>
+						</div>
+						<div class="area">
+							<input id="nome" name="nome" type="text" maxlength="70" placeholder="Nome" value="<%=prodotto.getNome()%>"><br>
+						</div>
+					</div>
+					
+					<div class="riga">
+						<div class="nome">	
+							<label for="prezzo">Prezzo</label>
+						</div>
+						<div class="area">
+							<input id="prezzo" name="prezzo" type="text" placeholder="Prezzo" value="<%=prodotto.getPrezzo()%>"><br>
+						</div>
+					</div>
+					
+					<div class="riga">	
+						<div class="nome">
+							<label for="descrizione">Descrizione</label>
+						</div>
+						<div class="area">
+							<input id="descrizione" name="descrizione" type="text" maxlength="500" placeholder="Descrizione" value="<%=prodotto.getDescrizione()%>"><br>
+						</div>
+					</div>
+					
+					<div class="riga">	
+						<div class="nome">
+							<label for="casaproduttrice">Casa produttrice</label>
+						</div>
+						<div class="area">
+							<input id="casaproduttrice" name="casaproduttrice" type="text" maxlength="50" placeholder="Casa Produttrice" value="<%=prodotto.getCasaProduttrice()%>" ><br>
+						</div>
+					</div>
+						
+					<div class="riga">	
+						<div class="nome">
+							<label for="quantita">Quantità</label>
+						</div>
+						<div class="area">
+							<input id="quantita" name="quantita" type="text" placeholder="Quantità" value="<%=prodotto.getQuantita()%>"><br>
+						</div>
+					</div>
+					
+					<div class="riga">	
+						<div class="nome">
+							<label for="copertina">Copertina</label>
+						</div>
+						<div class="area">
+							<input id="copertina" name="copertina" type="file" placeholder="Copertina" value="<%=prodotto.getCopertina()%>"><br>
+						</div>
+					</div>
+
+					<div class="riga">
+						<div class="nome">	
+							<label for="nome_categoria">Categoria</label>
+						</div>
+								<select id="nome_categoria" name="nome_categoria">
+								 <%
+										if(categorie != null && categorie.size() > 0) {
+											
+											Iterator<?> it = categorie.iterator();
+											while(it.hasNext()) {
+												CategoriaBean bean = (CategoriaBean)it.next();
+											
+											%>
+												<option value="<%= bean.getNome() %>"><%= bean.getNome() %></option>
+									<%		}
+										} %>
+								</select>
+					</div>	
+					   
+					
+						<button type="submit" class="bottone" onClick="return valida()">Aggiorna</button>
+						
+				
+			</form>
+	     </div>	
+         
+         
+		<form action="/LaTanaDelGamer/Dashboard/prodotti" method="POST">
+		<button>Annulla</button>
+		</form>
+	<%  } %>
+
        		
-       	</div>	
+</div>	
 
 
 </body>

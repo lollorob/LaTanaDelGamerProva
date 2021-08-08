@@ -34,18 +34,14 @@
 		<header class="top">
 			Benvenuto! Quale operazione desidera effettuare?
 		</header>
-		<caption><a>Lista Ordini</a></caption>
 	 	<div id="tabella"> 
     <table> 
        <thead> 
           <tr> 
         <th>Id Ordine</th>
-        <th>Data Ordine</th>
         <th>Username</th>
-        <th>Email Spedizione</th>
         <th>Importo</th>
-        <th>Tipo di Pagamento</th>
-        <th>Metodo di Pagamento</th>
+        <th>Azioni</th>
           </tr> 
                <%
 		if(ordini != null && ordini.size() > 0) {
@@ -58,26 +54,68 @@
        </thead> 
        <tbody> 
           <tr> 
-             <td data-title="Id Ordine"><%=bean.getId_ordine() %></td> 
-             <td data-title="Data Ordine"><%=bean.getData_ordine() %></td>
+          	 <td data-title="Id"><%= bean.getId_ordine()%></td>
              <td data-title="Username"><%=bean.getUsername() %></td>
-             <td data-title="Email Spedizione"><%=bean.getEmail_spedizione() %></td>
              <td data-title="Importo"><%=bean.getImporto() %></td>
-             <td data-title="Tipo di Pagamento"><%=bean.getTipo_pagamento() %></td>
-             <td data-title="Metodo di Pagamento"><%=bean.getMetodo_pagamento() %></td>
-          </tr>
+			 <td>
+             	 <form method="POST" action="/LaTanaDelGamer/ordini/dettagli">
+             		<button type="submit" name="id" class="bottone" value="<%=bean.getId_ordine()%>">Dettagli</button>
+             	</form>
+             	
+             	</td>
+
       <% }
 		} else { %>
-		<tr>
 			<td colspan="15">Non ci sono Ordini</td>
-		</tr>
-	<% } %> 
+	<% } 
+	
+	    OrdineBean ordine = (OrdineBean) session.getAttribute("ordini");
+	    	session.removeAttribute("ordini");
+    	%>
+	          </tr>
+          
+          </table>
+	<%
+		if(ordine != null) {  
+	%>
+			 	<div id="tabella"> 
+    <table> 
+       <thead> 
+          <tr> 
+        <th>Id Ordine</th>
+        <th>Data Ordine</th>
+        <th>Username</th>
+        <th>Email Spedizione</th>
+        <th>Importo</th>
+        <th>Tipo di Pagamento</th>
+        <th>Metodo di Pagamento</th>
+        <th>Azioni</th>
+          </tr>
+       </thead> 
+       <tbody> 
+          <tr> 
+             <td data-title="Id Ordine"><%=ordine.getId_ordine() %></td> 
+             <td data-title="Data Ordine"><%=ordine.getData_ordine() %></td>
+             <td data-title="Username"><%=ordine.getUsername() %></td>
+             <td data-title="Email Spedizione"><%=ordine.getEmail_spedizione() %></td>
+             <td data-title="Importo"><%=ordine.getImporto() %></td>
+             <td data-title="Tipo di Pagamento"><%=ordine.getTipo_pagamento() %></td>
+             <td data-title="Metodo di Pagamento"><%=ordine.getMetodo_pagamento() %></td>
+			 <td><form method="POST" action="/LaTanaDelGamer/ordini/elimina">
+             		<button type="submit" name="id" class="bottone" value="<%=ordine.getId_ordine()%>">Elimina</button>
+             	</form>
+        <form action="/LaTanaDelGamer/Dashboard/ordini" method="POST">
+		<button>Annulla</button>    
+		</form>        	
+             	</td>
+          </tr>	
+			<%  } %>
        </tbody>
     </table> 
  </div>
        		
        	</div>	
 
-
+</div>
 </body>
 </html>

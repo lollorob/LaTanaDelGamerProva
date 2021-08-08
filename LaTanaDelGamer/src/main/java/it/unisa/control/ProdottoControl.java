@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.Collection;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,10 +16,6 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.sql.DataSource;
 
-import it.unisa.model.AccountUserBean;
-import it.unisa.model.AccountUserModelDS;
-import it.unisa.model.CategoriaBean;
-import it.unisa.model.CategoriaModelDS;
 import it.unisa.model.ProdottoBean;
 import it.unisa.model.ProdottoModelDS;
 import it.unisa.utils.Utility;
@@ -45,7 +40,6 @@ public class ProdottoControl extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
-		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
 
 		switch (path) {
 			case "/": 
@@ -75,11 +69,12 @@ public class ProdottoControl extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String path = (request.getPathInfo() != null) ? request.getPathInfo() : "/";
-		HttpSession session=request.getSession();
 		DataSource ds = (DataSource)getServletContext().getAttribute("DataSource");
+		HttpSession session=request.getSession();
+
 		switch(path) {
 			case "/crea":{
-				System.out.println("ooodasodso");
+				String message;
 			
 				ProdottoModelDS model = new ProdottoModelDS(ds);
 			
@@ -98,6 +93,27 @@ public class ProdottoControl extends HttpServlet {
 					String nomeFile=Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 					
 					
+					SAVE_DIR="immaginiDB";
+					String savePath = request.getServletContext().getRealPath("") + File.separator + SAVE_DIR;
+					
+					File fileSaveDir = new File(savePath);
+					if (!fileSaveDir.exists()) {
+						fileSaveDir.mkdir();
+					}
+
+					message = "upload =\n";
+					if (request.getParts() != null && request.getParts().size() > 0) {
+						for (Part part : request.getParts()) {
+							String fileName = extractFileName(part);
+							if (fileName != null && !fileName.equals("")) {
+								part.write(savePath + File.separator + fileName);
+								System.out.println(savePath + File.separator + fileName);
+								message = message + fileName + "\n";
+							} else {
+								request.setAttribute("error2", "Errore: Bisogna selezionare almeno un file");
+							}
+						}
+					}
 					prodotto.setCopertina(nomeFile);
 					prodotto.setnomeCategoria(request.getParameter("nome_categoria"));
 					
@@ -113,32 +129,30 @@ public class ProdottoControl extends HttpServlet {
 					return;
 				}				
 				
-				SAVE_DIR="immaginiDB";
-				String savePath = request.getServletContext().getRealPath("") + File.separator + SAVE_DIR;
 				
-				System.out.println("path di salvataggio:" + savePath);
-				File fileSaveDir = new File(savePath);
-				if (!fileSaveDir.exists()) {
-					fileSaveDir.mkdir();
-				}
-
-				String message = "upload =\n";
-				if (request.getParts() != null && request.getParts().size() > 0) {
-					for (Part part : request.getParts()) {
-						String fileName = extractFileName(part);
-						if (fileName != null && !fileName.equals("")) {
-							part.write(savePath + File.separator + fileName);
-							System.out.println(savePath + File.separator + fileName);
-							message = message + fileName + "\n";
-						} else {
-							request.setAttribute("error2", "Errore: Bisogna selezionare almeno un file");
-						}
-					}
-				}
 				request.setAttribute("message2", message);
 				response.sendRedirect(request.getContextPath() + "/Dashboard/prodotti");
 			}
 			break;
+			
+			case "/dettagli":
+			{	
+				ProdottoModelDS model = new ProdottoModelDS(ds);
+				try {
+					String id = request.getParameter("id");
+					int chiave=Integer.parseInt(id);
+					
+					request.removeAttribute("prodotto");
+					session.setAttribute("prodotti", model.doRetrieveByKey(chiave));
+					
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				response.sendRedirect(request.getContextPath() + "/Dashboard/prodotti");
+			}
+				break;
+			
 		
 			case "/elimina" :{
 				
@@ -161,13 +175,66 @@ public class ProdottoControl extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/Dashboard/prodotti");
 			}
 			
+				break;
+			
+			case "/aggiorna" :{
+				
+				String message;
+				
+				ProdottoModelDS model = new ProdottoModelDS(ds);
+				ProdottoBean prodotto = new ProdottoBean();
+				
+				try {	
+							
+					
+					String id = request.getParameter("id");
+					int chiave=Integer.parseInt(id);
+
+					prodotto.setId_prodotto(chiave);
+					prodotto.setNome(request.getParameter("nome"));
+					prodotto.setPrezzo(Float.parseFloat(request.getParameter("prezzo")));
+					prodotto.setDescrizione(request.getParameter("descrizione"));
+					prodotto.setCasaproduttrice(request.getParameter("casaproduttrice"));
+					prodotto.setQuantita(Integer.parseInt(request.getParameter("quantita")));
+					Part filePart = request.getPart("copertina");
+					String nomeFile=Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+					
+					
+					SAVE_DIR="immaginiDB";
+					String savePath = request.getServletContext().getRealPath("") + File.separator + SAVE_DIR;
+					
+					File fileSaveDir = new File(savePath);
+					if (!fileSaveDir.exists()) {
+						fileSaveDir.mkdir();
+					}
+
+					message = "upload =\n";
+					if (request.getParts() != null && request.getParts().size() > 0) {
+						for (Part part : request.getParts()) {
+							String fileName = extractFileName(part);
+							if (fileName != null && !fileName.equals("")) {
+								part.write(savePath + File.separator + fileName);
+								System.out.println(savePath + File.separator + fileName);
+								message = message + fileName + "\n";
+							} else {
+								request.setAttribute("error2", "Errore: Bisogna selezionare almeno un file");
+							}
+						}
+					}
+					prodotto.setCopertina(nomeFile);
+					prodotto.setnomeCategoria(request.getParameter("nome_categoria"));
+					model.doUpdate(prodotto);
+					request.setAttribute("message", "Prodotto" + prodotto.getNome() + " AGGIUNTO");
+					
+				}  catch (SQLException e) {
+					e.printStackTrace();
+			}
+				response.sendRedirect(request.getContextPath() + "/Dashboard/prodotti");
+	}
 			break;
-	}
-		
-		
-		
 		
 	}
+}
 	
 	
 			private String extractFileName(Part part) {
